@@ -1,0 +1,553 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
+		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
+		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
+		6091197E1916631500CEE3CB /* libglfw3.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */; };
+		60911980191664D100CEE3CB /* libassimp.3.0.255.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091197F191664D100CEE3CB /* libassimp.3.0.255.dylib */; };
+		6091198419166D7D00CEE3CB /* MyVertexShader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 6091198319166D7D00CEE3CB /* MyVertexShader.vs */; };
+		6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */ = {isa = PBXBuildFile; fileRef = 6091198719166DA400CEE3CB /* MyFragmentShader.fs */; };
+		6091198B191670FB00CEE3CB /* ShaderUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60911989191670FB00CEE3CB /* ShaderUtils.cpp */; };
+		60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60B66F1E191CCC1000F582C6 /* TextureUtils.cpp */; };
+		60D35FA119279DD80004988F /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60D35F9F19279DD80004988F /* Shader.cpp */; };
+		60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60D35FA21927A0330004988F /* ShaderProgram.cpp */; };
+		60D35FA81927C68A0004988F /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D35FA71927C68A0004988F /* car.png */; };
+		60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D35FA91927C9420004988F /* libIL.1.dylib */; };
+		60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98BD191651C2000E698E /* InfoPlist.strings */; };
+		60ED98C5191651C2000E698E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98C3191651C2000E698E /* Credits.rtf */; };
+		60ED98CD191651C2000E698E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98CC191651C2000E698E /* Images.xcassets */; };
+		60ED98DD191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98DB191651C2000E698E /* InfoPlist.strings */; };
+		60ED98DF191651C2000E698E /* HelloGLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98DE191651C2000E698E /* HelloGLTests.m */; };
+		60ED98EA19165204000E698E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98E819165204000E698E /* main.cpp */; };
+		60FC6E83191CD6300040450B /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 60FC6E82191CD6300040450B /* texture.jpg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		60ED98D6191651C2000E698E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60ED98A9191651C2000E698E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 60ED98B0191651C2000E698E;
+			remoteInfo = HelloGL;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		6084C4D5191655DE00817CC3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.0.dylib; path = ../../../../../../../../usr/local/Cellar/glfw3/3.0.4/lib/libglfw3.3.0.dylib; sourceTree = "<group>"; };
+		6091197F191664D100CEE3CB /* libassimp.3.0.255.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.255.dylib; path = ../../../../../../../../usr/local/Cellar/assimp/3.0.1270/lib/libassimp.3.0.255.dylib; sourceTree = "<group>"; };
+		6091198319166D7D00CEE3CB /* MyVertexShader.vs */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = MyVertexShader.vs; sourceTree = "<group>"; };
+		6091198719166DA400CEE3CB /* MyFragmentShader.fs */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = MyFragmentShader.fs; sourceTree = "<group>"; };
+		60911989191670FB00CEE3CB /* ShaderUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtils.cpp; sourceTree = "<group>"; };
+		6091198A191670FB00CEE3CB /* ShaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtils.h; sourceTree = "<group>"; };
+		60B66F1E191CCC1000F582C6 /* TextureUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureUtils.cpp; sourceTree = "<group>"; };
+		60B66F1F191CCC1000F582C6 /* TextureUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureUtils.h; sourceTree = "<group>"; };
+		60D35F9F19279DD80004988F /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		60D35FA019279DD80004988F /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		60D35FA21927A0330004988F /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
+		60D35FA31927A0330004988F /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
+		60D35FA71927C68A0004988F /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
+		60D35FA91927C9420004988F /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = ../../../../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libIL.1.dylib; sourceTree = "<group>"; };
+		60ED98B1191651C2000E698E /* HelloGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60ED98BC191651C2000E698E /* HelloGL-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloGL-Info.plist"; sourceTree = "<group>"; };
+		60ED98BE191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		60ED98C4191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		60ED98CC191651C2000E698E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		60ED98D2191651C2000E698E /* HelloGLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloGLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60ED98DA191651C2000E698E /* HelloGLTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloGLTests-Info.plist"; sourceTree = "<group>"; };
+		60ED98DC191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		60ED98DE191651C2000E698E /* HelloGLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGLTests.m; sourceTree = "<group>"; };
+		60ED98E819165204000E698E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		60FC6E82191CD6300040450B /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = texture.jpg; path = ../../texture.jpg; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60ED98AE191651C2000E698E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */,
+				60911980191664D100CEE3CB /* libassimp.3.0.255.dylib in Frameworks */,
+				6091197E1916631500CEE3CB /* libglfw3.3.0.dylib in Frameworks */,
+				6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */,
+				6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60ED98CF191651C2000E698E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6091198119166CF300CEE3CB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				60FC6E81191CD47E0040450B /* Textures */,
+				6091198219166CFB00CEE3CB /* Shaders */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6091198219166CFB00CEE3CB /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				6091198319166D7D00CEE3CB /* MyVertexShader.vs */,
+				6091198719166DA400CEE3CB /* MyFragmentShader.fs */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		60ED98A8191651C2000E698E = {
+			isa = PBXGroup;
+			children = (
+				60ED98BA191651C2000E698E /* HelloGL */,
+				60ED98D8191651C2000E698E /* HelloGLTests */,
+				60ED98B3191651C2000E698E /* Frameworks */,
+				60ED98B2191651C2000E698E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		60ED98B2191651C2000E698E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60ED98B1191651C2000E698E /* HelloGL.app */,
+				60ED98D2191651C2000E698E /* HelloGLTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		60ED98B3191651C2000E698E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60D35FA91927C9420004988F /* libIL.1.dylib */,
+				6091197F191664D100CEE3CB /* libassimp.3.0.255.dylib */,
+				6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */,
+				6084C4D5191655DE00817CC3 /* OpenAL.framework */,
+				6084C4D3191655D500817CC3 /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60ED98BA191651C2000E698E /* HelloGL */ = {
+			isa = PBXGroup;
+			children = (
+				6091198119166CF300CEE3CB /* Resources */,
+				60ED98CC191651C2000E698E /* Images.xcassets */,
+				60911989191670FB00CEE3CB /* ShaderUtils.cpp */,
+				6091198A191670FB00CEE3CB /* ShaderUtils.h */,
+				60D35FA21927A0330004988F /* ShaderProgram.cpp */,
+				60D35FA31927A0330004988F /* ShaderProgram.h */,
+				60B66F1E191CCC1000F582C6 /* TextureUtils.cpp */,
+				60B66F1F191CCC1000F582C6 /* TextureUtils.h */,
+				601F5A8E1927933800CE3A86 /* Window.cpp */,
+				601F5A8F1927933800CE3A86 /* Window.h */,
+				60D35F9F19279DD80004988F /* Shader.cpp */,
+				60D35FA019279DD80004988F /* Shader.h */,
+				60ED98BB191651C2000E698E /* Supporting Files */,
+			);
+			path = HelloGL;
+			sourceTree = "<group>";
+		};
+		60ED98BB191651C2000E698E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				60ED98E819165204000E698E /* main.cpp */,
+				60ED98BC191651C2000E698E /* HelloGL-Info.plist */,
+				60ED98BD191651C2000E698E /* InfoPlist.strings */,
+				60ED98C3191651C2000E698E /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		60ED98D8191651C2000E698E /* HelloGLTests */ = {
+			isa = PBXGroup;
+			children = (
+				60ED98DE191651C2000E698E /* HelloGLTests.m */,
+				60ED98D9191651C2000E698E /* Supporting Files */,
+			);
+			path = HelloGLTests;
+			sourceTree = "<group>";
+		};
+		60ED98D9191651C2000E698E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				60ED98DA191651C2000E698E /* HelloGLTests-Info.plist */,
+				60ED98DB191651C2000E698E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		60FC6E81191CD47E0040450B /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				60D35FA71927C68A0004988F /* car.png */,
+				60FC6E82191CD6300040450B /* texture.jpg */,
+			);
+			name = Textures;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		60ED98B0191651C2000E698E /* HelloGL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60ED98E2191651C2000E698E /* Build configuration list for PBXNativeTarget "HelloGL" */;
+			buildPhases = (
+				60ED98AD191651C2000E698E /* Sources */,
+				60ED98AE191651C2000E698E /* Frameworks */,
+				60ED98AF191651C2000E698E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloGL;
+			productName = HelloGL;
+			productReference = 60ED98B1191651C2000E698E /* HelloGL.app */;
+			productType = "com.apple.product-type.application";
+		};
+		60ED98D1191651C2000E698E /* HelloGLTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60ED98E5191651C2000E698E /* Build configuration list for PBXNativeTarget "HelloGLTests" */;
+			buildPhases = (
+				60ED98CE191651C2000E698E /* Sources */,
+				60ED98CF191651C2000E698E /* Frameworks */,
+				60ED98D0191651C2000E698E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60ED98D7191651C2000E698E /* PBXTargetDependency */,
+			);
+			name = HelloGLTests;
+			productName = HelloGLTests;
+			productReference = 60ED98D2191651C2000E698E /* HelloGLTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		60ED98A9191651C2000E698E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "August Nam-Ki Ek";
+				TargetAttributes = {
+					60ED98D1191651C2000E698E = {
+						TestTargetID = 60ED98B0191651C2000E698E;
+					};
+				};
+			};
+			buildConfigurationList = 60ED98AC191651C2000E698E /* Build configuration list for PBXProject "HelloGL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 60ED98A8191651C2000E698E;
+			productRefGroup = 60ED98B2191651C2000E698E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60ED98B0191651C2000E698E /* HelloGL */,
+				60ED98D1191651C2000E698E /* HelloGLTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		60ED98AF191651C2000E698E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60D35FA81927C68A0004988F /* car.png in Resources */,
+				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
+				60FC6E83191CD6300040450B /* texture.jpg in Resources */,
+				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
+				60ED98CD191651C2000E698E /* Images.xcassets in Resources */,
+				60ED98C5191651C2000E698E /* Credits.rtf in Resources */,
+				6091198419166D7D00CEE3CB /* MyVertexShader.vs in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60ED98D0191651C2000E698E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60ED98DD191651C2000E698E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		60ED98AD191651C2000E698E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6091198B191670FB00CEE3CB /* ShaderUtils.cpp in Sources */,
+				60ED98EA19165204000E698E /* main.cpp in Sources */,
+				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
+				60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */,
+				601F5A901927933800CE3A86 /* Window.cpp in Sources */,
+				60D35FA119279DD80004988F /* Shader.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60ED98CE191651C2000E698E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60ED98DF191651C2000E698E /* HelloGLTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		60ED98D7191651C2000E698E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 60ED98B0191651C2000E698E /* HelloGL */;
+			targetProxy = 60ED98D6191651C2000E698E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		60ED98BD191651C2000E698E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60ED98BE191651C2000E698E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		60ED98C3191651C2000E698E /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60ED98C4191651C2000E698E /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		60ED98DB191651C2000E698E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60ED98DC191651C2000E698E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		60ED98E0191651C2000E698E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		60ED98E1191651C2000E698E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		60ED98E3191651C2000E698E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/glfw3/3.0.4/include,
+					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/Cellar/glm/0.9.5.3/include,
+				);
+				INFOPLIST_FILE = "HelloGL/HelloGL-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+					/usr/local/Cellar/glfw3/3.0.4/lib,
+					/usr/local/Cellar/assimp/3.0.1270/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		60ED98E4191651C2000E698E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/glfw3/3.0.4/include,
+					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/Cellar/glm/0.9.5.3/include,
+				);
+				INFOPLIST_FILE = "HelloGL/HelloGL-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+					/usr/local/Cellar/glfw3/3.0.4/lib,
+					/usr/local/Cellar/assimp/3.0.1270/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		60ED98E6191651C2000E698E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HelloGL.app/Contents/MacOS/HelloGL";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HelloGL/HelloGL-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "HelloGLTests/HelloGLTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		60ED98E7191651C2000E698E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HelloGL.app/Contents/MacOS/HelloGL";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HelloGL/HelloGL-Prefix.pch";
+				INFOPLIST_FILE = "HelloGLTests/HelloGLTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		60ED98AC191651C2000E698E /* Build configuration list for PBXProject "HelloGL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60ED98E0191651C2000E698E /* Debug */,
+				60ED98E1191651C2000E698E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60ED98E2191651C2000E698E /* Build configuration list for PBXNativeTarget "HelloGL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60ED98E3191651C2000E698E /* Debug */,
+				60ED98E4191651C2000E698E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60ED98E5191651C2000E698E /* Build configuration list for PBXNativeTarget "HelloGLTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60ED98E6191651C2000E698E /* Debug */,
+				60ED98E7191651C2000E698E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 60ED98A9191651C2000E698E /* Project object */;
+}
