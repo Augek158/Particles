@@ -14,12 +14,15 @@
 #include <GLFW/glfw3.h>
 #include <IL/il.h>
 #include <glm/glm.hpp>
+#include <sstream>
 #include <iostream>
 #include <fstream>
 
 class Window{
 private:
     static int instanceCount;
+    static int frameCount;
+    static double oldTime;
     GLFWwindow* window;
 public:
     Window(GLint width, GLint height, std::string title);
@@ -29,6 +32,7 @@ public:
     GLint getFrameBufferWidth();
     GLint getFrameBufferHeight();
     void swapBuffers();
+    void setWindowFPS();
 };
 
 

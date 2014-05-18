@@ -17,6 +17,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+const int SIZE = 10;
+
 void initTriangleParemeters(GLuint VAO){
     
     glBindVertexArray(VAO);
@@ -26,17 +28,14 @@ void initTriangleParemeters(GLuint VAO){
 }
 
 GLfloat getPosY(){
-    return fmod(glfwGetTime(), 11.0f);
+    return fmod(glfwGetTime(), 25.0f);
 }
-
-
-const int SIZE = 30;
 
 glm::vec3* initPosArray(const int size){
     
     glm::vec3* arr = new glm::vec3[size];
     for(int i = 0; i < size; i++){
-        arr[i] = glm::vec3((float)(rand() % 10), 13.0f, 1.0f);
+        arr[i] = glm::vec3(-15.0f + (float)(rand() % 30), 25.0f + (float)(rand() % 15), -35.0f + (float)(rand() % 8));
     }
     return arr;
 }
@@ -112,23 +111,24 @@ int main(int argc, const char *argv[]){
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
     
     glm::vec3* startingPositions = initPosArray(SIZE);
-    
-    for (int i = 0; i < SIZE; i++) {
-        std::cout << startingPositions[i].x << " " << startingPositions[i].y << std::endl;
-    }
 
     //drawloop
     while(!window->shouldClose()){
+        window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
         
         glm::mat4 modelMat = glm::mat4();
         
-        modelMat = glm::mat4();
-        initTriangleParemeters(myVAO);
-        modelMat = glm::translate(modelMat, glm::vec3(0.0, 13.0f - 2.5*getPosY(), -20.0f));
-        modelMat = glm::rotate(modelMat, 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+        for(int i = 0; i < SIZE; i++){
+            modelMat = glm::mat4();
+            initTriangleParemeters(myVAO);
+            modelMat = glm::translate(modelMat, startingPositions[i]);
+            modelMat = glm::translate(modelMat, glm::vec3(0.0f, -2.5f*getPosY(), 0.0f));
+            modelMat = glm::rotate(modelMat, 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+
+        }
         
         
         glfwPollEvents();
