@@ -13,11 +13,12 @@
 #include "ShaderProgram.h"
 #include "TextureUtils.h"
 #include "Window.h"
+#include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const int SIZE = 10;
+const int SIZE = 100;
 
 void initTriangleParemeters(GLuint VAO){
     
@@ -31,13 +32,14 @@ GLfloat getPosY(){
     return fmod(glfwGetTime(), 25.0f);
 }
 
-glm::vec3* initPosArray(const int size){
+std::vector<glm::vec3>* initPosVec(const int size){
     
-    glm::vec3* arr = new glm::vec3[size];
+    std::vector<glm::vec3>* vec = new std::vector<glm::vec3>;
     for(int i = 0; i < size; i++){
-        arr[i] = glm::vec3(-15.0f + (float)(rand() % 30), 25.0f + (float)(rand() % 15), -35.0f + (float)(rand() % 8));
+        glm::vec3 pos = glm::vec3(-15.0f + (float)(rand() % 30), 25.0f + (float)(rand() % 15), -35.0f + (float)(rand() % 8));
+        vec->push_back(pos);
     }
-    return arr;
+    return vec;
 }
 
 int main(int argc, const char *argv[]){
@@ -110,7 +112,7 @@ int main(int argc, const char *argv[]){
     glm::mat4 viewMat = glm::mat4();
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
     
-    glm::vec3* startingPositions = initPosArray(SIZE);
+    std::vector<glm::vec3>* vec = initPosVec(SIZE);
 
     //drawloop
     while(!window->shouldClose()){
@@ -120,17 +122,15 @@ int main(int argc, const char *argv[]){
         
         glm::mat4 modelMat = glm::mat4();
         
-        for(int i = 0; i < SIZE; i++){
+        for(std::vector<glm::vec3>::iterator it = vec->begin(); it != vec->end(); it++){
+
             modelMat = glm::mat4();
             initTriangleParemeters(myVAO);
-            modelMat = glm::translate(modelMat, startingPositions[i]);
+            modelMat = glm::translate(modelMat, *it);
             modelMat = glm::translate(modelMat, glm::vec3(0.0f, -2.5f*getPosY(), 0.0f));
             modelMat = glm::rotate(modelMat, 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
-
         }
-        
-        
         glfwPollEvents();
         window->swapBuffers();
     }
