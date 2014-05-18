@@ -17,6 +17,30 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+void initTriangleParemeters(GLuint VAO){
+    
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(NULL);
+    
+}
+
+GLfloat getPosY(){
+    return fmod(glfwGetTime(), 11.0f);
+}
+
+
+const int SIZE = 30;
+
+glm::vec3* initPosArray(const int size){
+    
+    glm::vec3* arr = new glm::vec3[size];
+    for(int i = 0; i < size; i++){
+        arr[i] = glm::vec3((float)(rand() % 10), 13.0f, 1.0f);
+    }
+    return arr;
+}
+
 int main(int argc, const char *argv[]){
     
     Window* window = new Window(640, 360, "Modern OpenGL");
@@ -80,27 +104,32 @@ int main(int argc, const char *argv[]){
     
     glUniform4f(colorLoc, 1.0, 1.0, 1.0, 1.0);
     
+    float aspect = (float)window->getFrameBufferHeight()/window->getFrameBufferHeight();
+    glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
+
+    glm::mat4 viewMat = glm::mat4();
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
+    
+    glm::vec3* startingPositions = initPosArray(SIZE);
+    
+    for (int i = 0; i < SIZE; i++) {
+        std::cout << startingPositions[i].x << " " << startingPositions[i].y << std::endl;
+    }
 
     //drawloop
     while(!window->shouldClose()){
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
         
-        float aspect = (float)window->getFrameBufferHeight()/window->getFrameBufferHeight();
-        
-        
-        glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
-        glm::mat4 viewMat = glm::mat4();
         glm::mat4 modelMat = glm::mat4();
-        modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
         
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
+        modelMat = glm::mat4();
+        initTriangleParemeters(myVAO);
+        modelMat = glm::translate(modelMat, glm::vec3(0.0, 13.0f - 2.5*getPosY(), -20.0f));
+        modelMat = glm::rotate(modelMat, 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         
-        glBindVertexArray(myVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindVertexArray(NULL);
         
         glfwPollEvents();
         window->swapBuffers();
