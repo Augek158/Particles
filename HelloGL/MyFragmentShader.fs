@@ -7,5 +7,5 @@ in vec2 Texcoord;
 out vec4 fragData;
 
 void main(){
-    fragData = color * texture(tex, Texcoord);
+    fragData = color;
 }

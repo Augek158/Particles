@@ -10,8 +10,8 @@
 #define __HelloGL__Shader__
 
 #define GLFW_INCLUDE_GLCOREARB
-#include <iostream>
 #include <GLFW/glfw3.h>
+#include <iostream>
 #include <IL/il.h>
 #include <glm/glm.hpp>
 #include <iostream>

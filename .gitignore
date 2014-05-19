@@ -1,6 +1,8 @@
 # Xcode
-.DS_Store
+# Created by http://www.gitignore.io
+
 build/
+.DS_Store
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -16,5 +18,7 @@ profile
 *.moved-aside
 DerivedData
 .idea/
-# Pods - for those of you who use CocoaPods
 Pods
+*.xccheckout
+*.xcuserstate
+

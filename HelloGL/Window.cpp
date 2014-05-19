@@ -9,6 +9,8 @@
 #include "Window.h"
 
 GLint Window::instanceCount = 0;
+GLint Window::frameCount = 0;
+GLdouble Window::oldTime = 0.0f;
 
 Window::Window(GLint width, GLint height, std::string title){
     
@@ -74,4 +76,15 @@ GLint Window::getFrameBufferHeight(){
 
 void Window::swapBuffers(){
     glfwSwapBuffers(window);
+}
+
+void Window::setWindowFPS(){
+    double currentTime = glfwGetTime();
+    frameCount++;
+    std::stringstream ss;
+    if(frameCount % 30 == 0){
+        ss << "FPS: " << round(1.0f / (currentTime - oldTime));
+        glfwSetWindowTitle(window, ss.str().c_str());
+    }
+    oldTime = currentTime;
 }

@@ -13,9 +13,12 @@
 #include "ShaderProgram.h"
 #include "TextureUtils.h"
 #include "Window.h"
+#include "Container.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+const int SIZE = 100;
 
 int main(int argc, const char *argv[]){
     
@@ -51,85 +54,56 @@ int main(int argc, const char *argv[]){
     glBindBuffer(GL_ARRAY_BUFFER, myVBO);
     
     GLfloat bufferData[] = {
-        +1.0, +1.0, -0.0, +1.0, +1.0, +1.0,
-        -1.0, +1.0, -0.0, +1.0, +0.0, +1.0,
-        -1.0, -1.0, -0.0, +1.0, +0.0, +0.0,
-        +1.0, -1.0, -0.0, +1.0, +1.0, +0.0
+        +0.0, +1.0, -0.0, +1.0,
+        -1.0, -1.0, -0.0, +1.0,
+        +1.0, -1.0, -0.0, +1.0,
     };
     
     glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), bufferData, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, NULL);
-    
-    GLuint myEBO;
-    glGenBuffers(1, &myEBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEBO);
-    
-    GLushort indexData[] = {
-        0, 1, 2,
-        0, 2, 3,
-    };
-    
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexData), indexData, GL_STATIC_DRAW);
     
     GLuint myVAO;
     glGenVertexArrays(1, &myVAO);
     glBindVertexArray(myVAO);
     
     GLint positionLoc = program->getAttribLoc("position");
-    GLint texcoordLoc = program->getAttribLoc("texcoord");
     
     glEnableVertexAttribArray(positionLoc);
-    glEnableVertexAttribArray(texcoordLoc);
     
     glBindBuffer(GL_ARRAY_BUFFER, myVBO);
-    glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
-    glVertexAttribPointer(texcoordLoc, 2, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat),(GLvoid*) (4*sizeof(GLfloat)));
+    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
     glBindBuffer(GL_ARRAY_BUFFER, NULL);
     glBindVertexArray(NULL);
     
     GLint colorLoc = program->getUniformLoc("color");
-    GLint texLoc = program->getUniformLoc("tex");
     
     GLint modelLoc = program->getUniformLoc("uMMatrix");
     GLint projectionLoc = program->getUniformLoc("uPMatrix");
     GLint viewLoc = program->getUniformLoc("uVMatrix");
     
-    GLuint texture = TextureUtils::createTexture("texture.jpg");
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    
-    glUniform1i(texLoc,0);
     glUniform4f(colorLoc, 1.0, 1.0, 1.0, 1.0);
     
+    float aspect = (float)window->getFrameBufferHeight()/window->getFrameBufferHeight();
+    glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
+
+    glm::mat4 viewMat = glm::mat4();
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
+    
+    Container* container = new Container(SIZE);
 
     //drawloop
     while(!window->shouldClose()){
+        window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
         
-        float aspect = (float)window->getFrameBufferHeight()/window->getFrameBufferHeight();
-        
-        
-        glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
-        glm::mat4 viewMat = glm::mat4();
-        glm::mat4 modelMat = glm::mat4();
-        modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
-        
-        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
-        
-        glBindVertexArray(myVAO);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEBO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, NULL);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
-        glBindVertexArray(NULL);
-        
+        container->draw(myVAO, modelLoc);
+
         glfwPollEvents();
         window->swapBuffers();
     }
     
-    glDeleteBuffers(1, &myEBO);
     glDeleteBuffers(1, &myVBO);
     delete window;
     delete program;
