@@ -1,11 +1,11 @@
 #version 150 core
 
-uniform vec4 color;
 uniform sampler2D tex;
 
 in vec2 Texcoord;
+in vec4 Color;
 out vec4 fragData;
 
 void main(){
-    fragData = color;
+    fragData = vec4(1.0, 1.0, 1.0, 1.0);
 }

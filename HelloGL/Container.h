@@ -19,11 +19,14 @@ private:
     std::vector<Particle> container;
     GLuint vao;
     GLuint modelLoc;
-    
+    int max;
+    int frameCount;
+    int batchSize;
 public:
-    Container(int size, GLuint vao, GLuint modelLoc);
+    Container(int max, int batchSize, GLuint vao, GLuint modelLoc);
     virtual ~Container();
     void draw();
+    void spawn();
     double getDelta();
 };
 
