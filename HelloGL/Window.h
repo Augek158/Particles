@@ -24,6 +24,12 @@ private:
     static int frameCount;
     static double oldTime;
     GLFWwindow* window;
+    
+    GLdouble _lastBufferSwapTime;
+    GLdouble _deltaTime;
+    bool _grabbed;
+    glm::vec2 _lastMousePos;
+    glm::vec2 _deltaMousePos;
 public:
     Window(GLint width, GLint height, std::string title);
     void makeContextCurrent();
@@ -33,6 +39,10 @@ public:
     GLint getFrameBufferHeight();
     void swapBuffers();
     void setWindowFPS();
+    GLfloat getDeltaTime();
+    GLFWwindow* getWindow();
+    bool isGrabbed();
+    glm::vec2 getDeltaMousePosition();
 };
 
 

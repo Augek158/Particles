@@ -75,7 +75,27 @@ GLint Window::getFrameBufferHeight(){
 }
 
 void Window::swapBuffers(){
+    glfwPollEvents();
     glfwSwapBuffers(window);
+    GLdouble currentTime = glfwGetTime();
+    _deltaTime = currentTime - _lastBufferSwapTime;
+    _lastBufferSwapTime = currentTime;
+    if(!_grabbed &&glfwGetMouseButton(window, 0)){
+        _grabbed =true;
+        GLdouble x,y;
+        glfwGetCursorPos(window, &x, &y);
+        _lastMousePos = glm::vec2(-x,-y);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    if(_grabbed && glfwGetKey(window, GLFW_KEY_ESCAPE)){
+        _grabbed = false;
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    GLdouble x,y;
+    glfwGetCursorPos(window, &x, &y);
+    glm::vec2 currentMosPos = glm::vec2(-x,-y);
+    _deltaMousePos = currentMosPos - _lastMousePos;
+    _lastMousePos= currentMosPos;
 }
 
 void Window::setWindowFPS(){
@@ -87,4 +107,19 @@ void Window::setWindowFPS(){
         glfwSetWindowTitle(window, ss.str().c_str());
     }
     oldTime = currentTime;
+}
+GLFWwindow* Window::getWindow(){
+    return window;
+}
+
+GLfloat Window::getDeltaTime(){
+    return _deltaTime;
+}
+
+bool Window::isGrabbed(){
+    return _grabbed;
+}
+
+glm::vec2 Window::getDeltaMousePosition(){
+    return _deltaMousePos;
 }
