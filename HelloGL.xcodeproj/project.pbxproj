@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45B9AB821929F73B003ED531 /* baby.png in Resources */ = {isa = PBXBuildFile; fileRef = 45B9AB811929F73B003ED531 /* baby.png */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
 		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45B9AB811929F73B003ED531 /* baby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baby.png; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -161,7 +163,6 @@
 				601F5A8F1927933800CE3A86 /* Window.h */,
 				60D35F9F19279DD80004988F /* Shader.cpp */,
 				60D35FA019279DD80004988F /* Shader.h */,
-
 				60EAF9391929F65300F22F4D /* Container.cpp */,
 				60EAF93A1929F65300F22F4D /* Container.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
@@ -202,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				60D35FA71927C68A0004988F /* car.png */,
+				45B9AB811929F73B003ED531 /* baby.png */,
 				60FC6E82191CD6300040450B /* texture.jpg */,
 			);
 			name = Textures;
@@ -284,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60D35FA81927C68A0004988F /* car.png in Resources */,
+				45B9AB821929F73B003ED531 /* baby.png in Resources */,
 				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
 				60FC6E83191CD6300040450B /* texture.jpg in Resources */,
 				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
