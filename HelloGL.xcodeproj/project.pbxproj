@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6001D0581929D3F800840C05 /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6001D0561929D3F800840C05 /* Container.cpp */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
 		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
@@ -21,6 +20,7 @@
 		60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60D35FA21927A0330004988F /* ShaderProgram.cpp */; };
 		60D35FA81927C68A0004988F /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D35FA71927C68A0004988F /* car.png */; };
 		60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D35FA91927C9420004988F /* libIL.1.dylib */; };
+		60EAF93B1929F65300F22F4D /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EAF9391929F65300F22F4D /* Container.cpp */; };
 		60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98BD191651C2000E698E /* InfoPlist.strings */; };
 		60ED98C5191651C2000E698E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98C3191651C2000E698E /* Credits.rtf */; };
 		60ED98CD191651C2000E698E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98CC191651C2000E698E /* Images.xcassets */; };
@@ -41,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6001D0561929D3F800840C05 /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Container.cpp; path = ../Container.cpp; sourceTree = "<group>"; };
-		6001D0571929D3F800840C05 /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Container.h; path = ../Container.h; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -61,6 +59,8 @@
 		60D35FA31927A0330004988F /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
 		60D35FA71927C68A0004988F /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
 		60D35FA91927C9420004988F /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = ../../../../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libIL.1.dylib; sourceTree = "<group>"; };
+		60EAF9391929F65300F22F4D /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Container.cpp; sourceTree = "<group>"; };
+		60EAF93A1929F65300F22F4D /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
 		60ED98B1191651C2000E698E /* HelloGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60ED98BC191651C2000E698E /* HelloGL-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloGL-Info.plist"; sourceTree = "<group>"; };
 		60ED98BE191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 				601F5A8F1927933800CE3A86 /* Window.h */,
 				60D35F9F19279DD80004988F /* Shader.cpp */,
 				60D35FA019279DD80004988F /* Shader.h */,
-				6001D0561929D3F800840C05 /* Container.cpp */,
-				6001D0571929D3F800840C05 /* Container.h */,
+				60EAF9391929F65300F22F4D /* Container.cpp */,
+				60EAF93A1929F65300F22F4D /* Container.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
 			);
 			path = HelloGL;
@@ -308,9 +308,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6091198B191670FB00CEE3CB /* ShaderUtils.cpp in Sources */,
+				60EAF93B1929F65300F22F4D /* Container.cpp in Sources */,
 				60ED98EA19165204000E698E /* main.cpp in Sources */,
 				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
-				6001D0581929D3F800840C05 /* Container.cpp in Sources */,
 				60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */,
 				601F5A901927933800CE3A86 /* Window.cpp in Sources */,
 				60D35FA119279DD80004988F /* Shader.cpp in Sources */,
