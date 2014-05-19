@@ -9,22 +9,21 @@
 #ifndef __HelloGL__Container__
 #define __HelloGL__Container__
 
-#define GLFW_INCLUDE_GLCOREARB
-#include <GLFW/glfw3.h>
+#include "Particle.h"
 #include <iostream>
 #include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 
 class Container {
-    std::vector<glm::vec3> container;
+private:
+    std::vector<Particle> container;
+    GLuint vao;
+    GLuint modelLoc;
     
 public:
-    Container(int size);
+    Container(int size, GLuint vao, GLuint modelLoc);
     virtual ~Container();
-    void draw(GLuint vao, GLuint modelLoc);
+    void draw();
     double getDelta();
 };
 
