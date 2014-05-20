@@ -19,7 +19,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-const int SIZE = 10000;
+const int SIZE = 1000;
 //const int BATCH_SIZE = 20;
 
 int main(int argc, const char *argv[]){
@@ -60,10 +60,10 @@ int main(int argc, const char *argv[]){
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[0]);
     
     GLfloat vertexData[] = {
-        +0.3, +0.3, -0.0, +1.0,
-        -0.3, +0.3, -0.0, +1.0,
-        +0.3, -0.3, -0.0, +1.0,
-        -0.3, -0.3, -0.0, +1.0,
+        +1.0, +1.0, -0.0, +1.0,
+        -1.0, +1.0, -0.0, +1.0,
+        +1.0, -1.0, -0.0, +1.0,
+        -1.0, -1.0, -0.0, +1.0,
     };
     
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
@@ -134,7 +134,7 @@ int main(int argc, const char *argv[]){
         glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
-        glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, SIZE);
+        glDrawArraysInstanced(GL_TRIANGLES, 0, 4, SIZE);
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
