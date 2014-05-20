@@ -22,6 +22,7 @@
 		60D35FA81927C68A0004988F /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D35FA71927C68A0004988F /* car.png */; };
 		60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D35FA91927C9420004988F /* libIL.1.dylib */; };
 		60EAF93B1929F65300F22F4D /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EAF9391929F65300F22F4D /* Container.cpp */; };
+		60EAF93F1929F9EB00F22F4D /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EAF93D1929F9EB00F22F4D /* Particle.cpp */; };
 		60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98BD191651C2000E698E /* InfoPlist.strings */; };
 		60ED98C5191651C2000E698E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98C3191651C2000E698E /* Credits.rtf */; };
 		60ED98CD191651C2000E698E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98CC191651C2000E698E /* Images.xcassets */; };
@@ -63,6 +64,8 @@
 		60D35FA91927C9420004988F /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = ../../../../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libIL.1.dylib; sourceTree = "<group>"; };
 		60EAF9391929F65300F22F4D /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Container.cpp; sourceTree = "<group>"; };
 		60EAF93A1929F65300F22F4D /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
+		60EAF93D1929F9EB00F22F4D /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Particle.cpp; path = ../Particle.cpp; sourceTree = "<group>"; };
+		60EAF93E1929F9EB00F22F4D /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Particle.h; path = ../Particle.h; sourceTree = "<group>"; };
 		60ED98B1191651C2000E698E /* HelloGL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloGL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60ED98BC191651C2000E698E /* HelloGL-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloGL-Info.plist"; sourceTree = "<group>"; };
 		60ED98BE191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 				60D35FA019279DD80004988F /* Shader.h */,
 				60EAF9391929F65300F22F4D /* Container.cpp */,
 				60EAF93A1929F65300F22F4D /* Container.h */,
+				60EAF93D1929F9EB00F22F4D /* Particle.cpp */,
+				60EAF93E1929F9EB00F22F4D /* Particle.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
 			);
 			path = HelloGL;
@@ -312,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6091198B191670FB00CEE3CB /* ShaderUtils.cpp in Sources */,
+				60EAF93F1929F9EB00F22F4D /* Particle.cpp in Sources */,
 				60EAF93B1929F65300F22F4D /* Container.cpp in Sources */,
 				60ED98EA19165204000E698E /* main.cpp in Sources */,
 				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
