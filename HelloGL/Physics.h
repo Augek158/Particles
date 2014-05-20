@@ -11,15 +11,17 @@
 
 #include <iostream>
 
+
+
 class Physics {
 
   
 public:
-    Physics();
-    static float groundLevel;
-    static float gravity;
-};
+    static constexpr float COR = 0.7;
+    static constexpr float gravity = 9.82;
+    static constexpr float groundLevel = -20.0;
 
+};
 
 
 #endif /* defined(__HelloGL__Physics__) */

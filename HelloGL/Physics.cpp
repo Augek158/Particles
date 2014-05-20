@@ -8,8 +8,3 @@
 
 #include "Physics.h"
 
-Physics::Physics(){
-    groundLevel = 20.0;
-    gravity = 9.82;
-
-}

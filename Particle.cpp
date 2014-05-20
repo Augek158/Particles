@@ -9,11 +9,20 @@
 #include "Particle.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <math.h>
+#include "Physics.h"
+
+
 
 Particle::Particle(){
+
+    weight = 1000.0f;
+    gravity = -9.82 / 10;
+    still =false;
+    
     life = 0.0f;
     position = glm::vec3(-25.0f + ((double) 40 * rand() / (RAND_MAX)),
-                          0.0f + ((double) 20 * rand() / (RAND_MAX)),
+                          10.0f + ((double) 20 * rand() / (RAND_MAX)),
                          -35.0f + ((double) 8 * rand() / (RAND_MAX)));
     velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 }
@@ -23,10 +32,17 @@ glm::vec3 Particle::getPosition(){
 }
 
 void Particle::update(){
+    
     life += getDelta();
-    velocity = glm::vec3(0.0f, 0.5f * 9.82f * life * getDelta() , 0.0f);
-    checkBounds();
-    position -= velocity;
+    
+
+    if(!still){
+        velocity += glm::vec3(0.0f, 1.0f * gravity * getDelta() , 0.0f);
+        checkBounds();
+        position += velocity;
+    }
+    
+
 }
 
 float Particle::getLife(){
@@ -38,6 +54,26 @@ double Particle::getDelta(){
 }
 
 void Particle::checkBounds(){
-    if(position.y < -20.0f || position.y > 26.0f)
-        velocity *= -1.0f;
+
+    float minEnergyValue = 0.01;
+    
+    if(position.y < Physics::groundLevel){
+        velocity *= -Physics::COR;
+        position.y = Physics::groundLevel;
+    }
+    if(calculateEnergy() <  minEnergyValue){
+        still = true;
+    }
+    
+}
+
+float Particle::calculateEnergy(){
+    glm::vec3 energy = glm::vec3();
+
+    
+    float absY = sqrt((position.y - Physics::groundLevel) * (position.y - Physics::groundLevel) );
+    
+    energy.y = absY + velocity.y * velocity.y;
+    
+    return energy.y;
 }

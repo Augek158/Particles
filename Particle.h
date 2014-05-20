@@ -15,14 +15,18 @@
 #include <glm/glm.hpp>
 
 
+
 class Particle {
 
 private:
     glm::vec3 position;
     glm::vec3 velocity;
     float life;
-    
+    float gravity;
+    float weight;
+    bool still;
     void checkBounds();
+    float calculateEnergy();
     
 public:
     Particle();
