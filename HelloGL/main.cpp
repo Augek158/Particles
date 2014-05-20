@@ -1,4 +1,4 @@
-//
+
 //  main.cpp
 //  HelloGL
 //
@@ -55,8 +55,8 @@ int main(int argc, const char *argv[]){
     glBindVertexArray(myVAO);
     
     // Initalize Vertices
-    GLuint myVBO[3];
-    glGenBuffers(3, myVBO);
+    GLuint myVBO[4];
+    glGenBuffers(4, myVBO);
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[0]);
     
     GLfloat vertexData[] = {
@@ -74,8 +74,8 @@ int main(int argc, const char *argv[]){
     GLfloat colorData[] = {
         +1.0, +0.0, +0.0, +1.0,
         +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
+        +0.0, +1.0, +1.0, +1.0,
+        +0.0, +1.0, +1.0, +1.0,
     };
     
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[1]);
@@ -90,7 +90,15 @@ int main(int argc, const char *argv[]){
     glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(positionLoc);
     glVertexAttribDivisor(positionLoc, 1);
-
+    
+    // Initalize Elements
+    
+    GLuint elementData[] = {
+        0, 1, 3, 0, 3, 2,
+    };
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elementData), elementData, GL_STATIC_DRAW);
     
     GLint modelLoc = program->getUniformLoc("uMMatrix");
     GLint projectionLoc = program->getUniformLoc("uPMatrix");
@@ -100,7 +108,6 @@ int main(int argc, const char *argv[]){
     float aspect = (float)window->getFrameBufferWidth()/(float)window->getFrameBufferHeight();
     glm::mat4 projectionMat = glm::perspective(45.0f, aspect, 0.01f, 100.0f);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
-
     
         
     Camera cam = Camera();
@@ -134,7 +141,8 @@ int main(int argc, const char *argv[]){
         glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 4, SIZE);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, SIZE);
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
@@ -144,7 +152,7 @@ int main(int argc, const char *argv[]){
         window->swapBuffers();
     }
     
-    glDeleteBuffers(3, myVBO);
+    glDeleteBuffers(4, myVBO);
     glDeleteVertexArrays(1, &myVAO);
     delete window;
     delete program;
