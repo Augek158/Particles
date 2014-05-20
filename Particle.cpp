@@ -12,10 +12,12 @@
 
 Particle::Particle(){
     life = 0.0f;
-    position = glm::vec3(-25.0f + ((double) 40 * rand() / (RAND_MAX)),
-                          0.0f + ((double) 20 * rand() / (RAND_MAX)),
+    position = glm::vec3( -2.0f + ((double) 1 * rand() / (RAND_MAX)),
+                          0.0f + ((double) 2 * rand() / (RAND_MAX)),
                          -35.0f + ((double) 8 * rand() / (RAND_MAX)));
-    velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+    velocity = glm::vec3(-0.25 + (double)(0.5 * rand()/RAND_MAX),
+                         -0.25 + (double)(0.5 * rand()/RAND_MAX),
+                         -0.25 + (double)(0.5 * rand()/RAND_MAX));
 }
 
 glm::vec3 Particle::getPosition(){
@@ -24,7 +26,7 @@ glm::vec3 Particle::getPosition(){
 
 void Particle::update(){
     life += getDelta();
-    velocity = glm::vec3(0.0f, 0.5f * 9.82f * life * getDelta() , 0.0f);
+//    velocity = glm::vec3(0.0f, 0.5f * 9.82f * life * getDelta() , 0.0f);
     checkBounds();
     position -= velocity;
 }

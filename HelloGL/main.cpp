@@ -19,11 +19,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-const int SIZE = 10000;
-//const int BATCH_SIZE = 20;
+int size = 100;
+const int BATCH_SIZE = 50;
 
 int main(int argc, const char *argv[]){
-
     Window* window = new Window(640, 360, "Modern OpenGL");
     ShaderProgram* program;
     Shader* vertexShader;
@@ -89,7 +88,7 @@ int main(int argc, const char *argv[]){
     glEnableVertexAttribArray(colorLoc);
     
     // Initalize instancied positions
-    Container* container = new Container(SIZE);
+    Container* container = new Container(size, BATCH_SIZE);
     GLint positionLoc = program->getAttribLoc("aPosition");
     glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(positionLoc);
@@ -140,13 +139,14 @@ int main(int argc, const char *argv[]){
         
         // Send Positions
         glEnableVertexAttribArray(positionLoc);
+        size = container->update();
         GLfloat* positionData = container->getPositionBuffer();
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[2]);
-        glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
+        glBufferData(GL_ARRAY_BUFFER, 4 * size * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, size * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
-        glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, SIZE);
+        glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, size);
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));

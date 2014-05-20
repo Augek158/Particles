@@ -16,18 +16,19 @@
 
 class Container {
 private:
-    std::vector<Particle> container;
-    GLuint vao;
-    GLuint modelLoc;
+    static const int MAX_PARTICLES = 10000;
+    Particle container[MAX_PARTICLES];
     int numParticles;
     int frameCount;
     int batchSize;
+    
+    double getDelta();
 public:
-    Container(int numParticles);
+    Container(int numParticles, int batchSize);
     virtual ~Container();
     GLfloat* getPositionBuffer();
-    void spawn();
-    double getDelta();
+    int update();
+    void spawn(int particles);
 };
 
 #endif /* defined(__HelloGL__ParticleContainer__) */
