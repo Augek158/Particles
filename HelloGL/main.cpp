@@ -19,15 +19,19 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-const int SIZE = 1000;
+const int SIZE = 10000;
 //const int BATCH_SIZE = 20;
 
 int main(int argc, const char *argv[]){
-    
+
     Window* window = new Window(640, 360, "Modern OpenGL");
     ShaderProgram* program;
     Shader* vertexShader;
     Shader* fragmentShader;
+//    for (int i = 0; i < 10 ; i++) {
+//  std::cout<<((double) rand() / (RAND_MAX)) + 1<<std::endl;
+//    }
+    
     
     window->makeContextCurrent();
     
@@ -61,9 +65,9 @@ int main(int argc, const char *argv[]){
     
     GLfloat vertexData[] = {
         +1.0, +1.0, -0.0, +1.0,
-        -1.0, +1.0, -0.0, +1.0,
-        +1.0, -1.0, -0.0, +1.0,
-        -1.0, -1.0, -0.0, +1.0,
+//        -1.0, +1.0, -0.0, +1.0,
+//        +1.0, -1.0, -0.0, +1.0,
+//        -1.0, -1.0, -0.0, +1.0,
     };
     
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
@@ -73,9 +77,9 @@ int main(int argc, const char *argv[]){
     // Initalize Colors
     GLfloat colorData[] = {
         +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
+//        +1.0, +0.0, +0.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
     };
     
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[1]);
@@ -94,7 +98,7 @@ int main(int argc, const char *argv[]){
     // Initalize Elements
     
     GLuint elementData[] = {
-        0, 1, 3, 0, 3, 2,
+        0, //1, 3, 0, 3, 2,
     };
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
@@ -109,7 +113,7 @@ int main(int argc, const char *argv[]){
     glm::mat4 projectionMat = glm::perspective(45.0f, aspect, 0.01f, 100.0f);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
     
-        
+    glPointSize(2.0f);
     Camera cam = Camera();
     cam.setPosition(glm::vec3(0.0,0.0, 0.0));
     cam.setRotation(glm::vec3(0, 0, 0));
@@ -142,7 +146,7 @@ int main(int argc, const char *argv[]){
         glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, SIZE);
+        glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, SIZE);
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
