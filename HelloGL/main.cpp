@@ -19,8 +19,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-int size = 100;
-const int BATCH_SIZE = 50;
+int size = 10;
+const int BATCH_SIZE = 10;
 
 int main(int argc, const char *argv[]){
     Window* window = new Window(640, 360, "Modern OpenGL");
@@ -75,7 +75,7 @@ int main(int argc, const char *argv[]){
     
     // Initalize Colors
     GLfloat colorData[] = {
-        +1.0, +0.0, +0.0, +1.0,
+        +0.4, +0.0, +0.0, +1.0,
 //        +1.0, +0.0, +0.0, +1.0,
 //        +0.0, +1.0, +1.0, +1.0,
 //        +0.0, +1.0, +1.0, +1.0,
@@ -126,6 +126,10 @@ int main(int argc, const char *argv[]){
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
+        
+        // TODO: Improve blending
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE);
         
         // Send Vertices
         glEnableVertexAttribArray(vertexLoc);
