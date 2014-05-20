@@ -11,34 +11,26 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Particle::Particle(){
-    bornTime = glfwGetTime();
-    position = glm::vec3(-25.0f + (float)(rand() % 50),
-                          30.0f + (float)(rand() % 40),
-                         -60.0f + (float)(rand() % 30));
-    velocity = glm::vec3(0.0f, (float)(rand() % 10) * getDelta(), 0.0f);
-}
-
-void Particle::draw(GLuint vao, GLuint modelLoc){
-    glm::mat4 modelMat = glm::mat4();
-    glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glBindVertexArray(NULL);
-    
-    position -= velocity;
-    modelMat = glm::translate(modelMat, position);
-    modelMat = glm::rotate(modelMat, 180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+    life = 10.0f;
+    position = glm::vec3(-20.0f + (float)(rand() % 40),
+                          10.0f + (float)(rand() % 10),
+                         -10.0f + (float)(rand() % 5));
+    velocity = glm::vec3(0.0f,  (float)(2 + rand() % 5) * getDelta(), 0.0f);
 }
 
 glm::vec3 Particle::getPosition(){
     return position;
 }
 
+void Particle::update(){
+    life -= getDelta();
+    position -= velocity;
+}
+
+float Particle::getLife(){
+    return life;
+}
 
 double Particle::getDelta(){
     return 1.0f / 60.0f;
-}
-
-double Particle::getTimeLived(){
-    return glfwGetTime() - bornTime;
 }

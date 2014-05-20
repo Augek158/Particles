@@ -20,15 +20,14 @@ class Particle {
 private:
     glm::vec3 position;
     glm::vec3 velocity;
-    float lifeTime;
-    float bornTime;
+    float life;
     
 public:
     Particle();
-    void draw(GLuint vao, GLuint modelLoc);
     glm::vec3 getPosition();
     double getDelta();
-    double getTimeLived();
+    float getLife();
+    void update();
 };
 
 #endif /* defined(__HelloGL__Particle__) */

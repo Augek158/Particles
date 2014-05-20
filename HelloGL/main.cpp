@@ -18,38 +18,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const int SIZE = 100;
-const int BATCH_SIZE = 20;
-
-GLfloat* getColorData(int size){
-
-    int bufferSize = 4*4*size;
-    GLfloat* buffer = new GLfloat[bufferSize];
-    
-    for(int i = 0; i < bufferSize; i+=16){
-        for(int j = i; j < i+15; j+=4){
-            double color = (double)rand()/ RAND_MAX;
-            buffer[j] = color;
-            buffer[j + 1] = color;
-            buffer[j + 2] = color;
-            buffer[j + 3] = 1.0f;
-        }
-    }
-    return buffer;
-}
-
-GLfloat* getPositionData(int size){
-    
-    int bufferSize = 4*size;
-    GLfloat* buffer = new GLfloat[bufferSize];
-    for(int i = 0; i < bufferSize; i+=4){
-        buffer[i] =  -10 + (float)(rand() % 10);
-        buffer[i+1] = -10 + (float)(rand() % 10);
-        buffer[i+2] = -10 + (float)(rand() % 5);
-        buffer[i+3] = 1.0f;
-    }
-    return buffer;
-}
+const int SIZE = 100000;
+//const int BATCH_SIZE = 20;
 
 int main(int argc, const char *argv[]){
     
@@ -83,7 +53,7 @@ int main(int argc, const char *argv[]){
     glGenVertexArrays(1, &myVAO);
     glBindVertexArray(myVAO);
     
-    // init Vertices
+    // Initalize Vertices
     GLuint myVBO[3];
     glGenBuffers(3, myVBO);
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[0]);
@@ -99,8 +69,7 @@ int main(int argc, const char *argv[]){
     
     GLint vertexLoc = program->getAttribLoc("aVertex");
     
-    // init Colors
-    
+    // Initalize Colors
     GLfloat colorData[] = {
         +1.0, +0.0, +0.0, +1.0,
         +1.0, +0.0, +0.0, +1.0,
@@ -114,34 +83,13 @@ int main(int argc, const char *argv[]){
     glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(colorLoc);
     
-    GLfloat* positionData = getPositionData(SIZE);
-    glBindBuffer(GL_ARRAY_BUFFER, myVBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), positionData, GL_STATIC_DRAW);
+    // Initalize instancied positions
+    Container* container = new Container(SIZE);
     GLint positionLoc = program->getAttribLoc("aPosition");
     glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(positionLoc);
     glVertexAttribDivisor(positionLoc, 1);
-    
-    
-//    std::cout<<myVAO<<std::endl;
-    
-    
 
-    
-    
-    /*
-    GLuint colorBuffer;
-    GLfloat* colorData = getColorData(10);
-    glGenBuffers(1, &colorBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, SIZE * 4 * sizeof(GLfloat), colorData, GL_STREAM_DRAW);
-    
-    
-    glEnableVertexAttribArray(colorLoc);
-    glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
-      */
-    
     
     GLint modelLoc = program->getUniformLoc("uMMatrix");
     GLint projectionLoc = program->getUniformLoc("uPMatrix");
@@ -157,14 +105,13 @@ int main(int argc, const char *argv[]){
     
     glm::mat4 modelMat = glm::mat4();
     
-    //drawloop
         modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -10.0f));
     while(!window->shouldClose()){
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
         
-        // Send Positions
+        // Send Vertices
         glEnableVertexAttribArray(vertexLoc);
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[0]);
         glVertexAttribPointer(vertexLoc, 4, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
@@ -173,11 +120,16 @@ int main(int argc, const char *argv[]){
         glEnableVertexAttribArray(colorLoc);
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[1]);
         glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
-
+        
+        // Send Positions
         glEnableVertexAttribArray(positionLoc);
+        GLfloat* positionData = container->getPositionBuffer();
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[2]);
+        glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, SIZE);
+        
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
 
 
@@ -189,7 +141,7 @@ int main(int argc, const char *argv[]){
         window->swapBuffers();
     }
     
-    glDeleteBuffers(2, myVBO);
+    glDeleteBuffers(3, myVBO);
     glDeleteVertexArrays(1, &myVAO);
     delete window;
     delete program;
