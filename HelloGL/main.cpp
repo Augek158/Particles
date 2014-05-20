@@ -17,8 +17,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Camera.h"
 
-const int SIZE = 100000;
+const int SIZE = 10000;
 //const int BATCH_SIZE = 20;
 
 int main(int argc, const char *argv[]){
@@ -100,13 +101,18 @@ int main(int argc, const char *argv[]){
     glm::mat4 projectionMat = glm::perspective(45.0f, aspect, 0.01f, 100.0f);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
 
-    glm::mat4 viewMat = glm::mat4();
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
+    
+        
+    Camera cam = Camera();
+    cam.setPosition(glm::vec3(0.0,0.0, 0.0));
+    cam.setRotation(glm::vec3(0, 0, 0));
     
     glm::mat4 modelMat = glm::mat4();
+    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -10.0f));
     
-        modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -10.0f));
     while(!window->shouldClose()){
+        
+        cam.pollUserInput(window);
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
@@ -131,11 +137,8 @@ int main(int argc, const char *argv[]){
         glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, SIZE);
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
 
-
-        
-//        container->spawn();
-//        container->draw();
 
         glfwPollEvents();
         window->swapBuffers();

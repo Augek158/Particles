@@ -12,9 +12,9 @@
 
 Particle::Particle(){
     life = 10.0f;
-    position = glm::vec3(-20.0f + (float)(rand() % 40),
-                          10.0f + (float)(rand() % 10),
-                         -10.0f + (float)(rand() % 5));
+    position = glm::vec3(-15.0f + (float)(rand() % 30),
+                          15.0f + (float)(rand() % 15),
+                         -35.0f + (float)(rand() % 8));
     velocity = glm::vec3(0.0f,  (float)(2 + rand() % 5) * getDelta(), 0.0f);
 }
 
