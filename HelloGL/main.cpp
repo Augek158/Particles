@@ -19,15 +19,20 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 
-const int SIZE = 50000;
+const int SIZE = 20;
+
 //const int BATCH_SIZE = 20;
 
 int main(int argc, const char *argv[]){
-    
+
     Window* window = new Window(640, 360, "Modern OpenGL");
     ShaderProgram* program;
     Shader* vertexShader;
     Shader* fragmentShader;
+//    for (int i = 0; i < 10 ; i++) {
+//  std::cout<<((double) rand() / (RAND_MAX)) + 1<<std::endl;
+//    }
+    
     
     window->makeContextCurrent();
     
@@ -72,9 +77,9 @@ int main(int argc, const char *argv[]){
     GLfloat vertexData[] = {
 
         +1.0, +1.0, -0.0, +1.0,
-        -1.0, +1.0, -0.0, +1.0,
-        +1.0, -1.0, -0.0, +1.0,
-        -1.0, -1.0, -0.0, +1.0,
+       // -1.0, +1.0, -0.0, +1.0,
+       // +1.0, -1.0, -0.0, +1.0,
+        //-1.0, -1.0, -0.0, +1.0,
 
  
 //        -sphereX, 0.0f, sphereZ, 1.0,
@@ -101,17 +106,18 @@ int main(int argc, const char *argv[]){
     // Initalize Colors
     GLfloat colorData[] = {
         +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +1.0, +0.0, +0.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,
-        +0.0, +1.0, +1.0, +1.0,        
+//        +1.0, +0.0, +0.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +1.0, +0.0, +0.0, +1.0,
+//        +1.0, +0.0, +0.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +1.0, +0.0, +0.0, +1.0,
+//        +1.0, +0.0, +0.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,
+//        +0.0, +1.0, +1.0, +1.0,        
+
     };
     
 
@@ -138,6 +144,7 @@ int main(int argc, const char *argv[]){
     // Initalize Elements
     
     GLuint elementData[] = {
+
         //for the square
         0, //, 0, 3, 2,
         
@@ -162,6 +169,7 @@ int main(int argc, const char *argv[]){
 //        9,11,2,
 //        9,2,5,
 //        7,2,11
+
     };
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
@@ -176,7 +184,7 @@ int main(int argc, const char *argv[]){
     glm::mat4 projectionMat = glm::perspective(45.0f, aspect, 0.01f, 100.0f);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
     
-        
+    glPointSize(2.0f);
     Camera cam = Camera();
     cam.setPosition(glm::vec3(0.0,0.0, 20.0));
     cam.setRotation(glm::vec3(0, 0, 0));
@@ -184,8 +192,7 @@ int main(int argc, const char *argv[]){
     glm::mat4 modelMat = glm::mat4();
     modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -10.0f));
     
-    //glEnable(GL_POINT_SMOOTH);
-    glPointSize(10);
+    glPointSize(5);
     
 
     
@@ -217,8 +224,6 @@ int main(int argc, const char *argv[]){
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
         glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, SIZE);
 
-
-        
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));

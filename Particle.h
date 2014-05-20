@@ -22,6 +22,8 @@ private:
     glm::vec3 velocity;
     float life;
     
+    void checkBounds();
+    
 public:
     Particle();
     glm::vec3 getPosition();
