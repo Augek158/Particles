@@ -20,12 +20,12 @@
 #include "Camera.h"
 #include "Physics.h"
 
-const int SIZE = 300000;
 
-//const int BATCH_SIZE = 20;
+int size = 10;
+const int BATCH_SIZE = 10;
+
 
 int main(int argc, const char *argv[]){
-
     Window* window = new Window(640, 360, "Modern OpenGL");
     ShaderProgram* program;
     Shader* vertexShader;
@@ -65,38 +65,8 @@ int main(int argc, const char *argv[]){
     glGenBuffers(4, myVBO);
     glBindBuffer(GL_ARRAY_BUFFER, myVBO[0]);
     
-   // GLfloat vertexData[] = {
- //       +0.3, +0.3, -0.0, +1.0,
-//        -0.3, +0.3, -0.0, +1.0,
-//        +0.3, -0.3, -0.0, +1.0,
-//        -0.3, -0.3, -0.0, +1.0,
-   // };
-   
-    GLfloat sphereX = 0.525731112119133606f;
-    GLfloat sphereZ = 0.850650808352039932f;
-    
     GLfloat vertexData[] = {
-
         +1.0, +1.0, -0.0, +1.0,
-       // -1.0, +1.0, -0.0, +1.0,
-       // +1.0, -1.0, -0.0, +1.0,
-        //-1.0, -1.0, -0.0, +1.0,
-
- 
-//        -sphereX, 0.0f, sphereZ, 1.0,
-//        sphereX, 0.0f, sphereZ, 1.0,
-//        -sphereX, 0.0f, -sphereZ, 1.0,
-//        sphereX, 0.0f, -sphereZ, 1.0,
-//        0.0f, sphereZ, sphereX, 1.0,
-//        0.0f, sphereZ, -sphereX, 1.0,
-//        0.0f, -sphereZ, sphereX, 1.0,
-//        0.0f, -sphereZ, -sphereX, 1.0,
-//        sphereZ, sphereX, 0.0f, 1.0,
-//        -sphereZ, sphereX, 0.0f, 1.0,
-//        sphereZ, -sphereX, 0.0f, 1.0,
-//        -sphereZ, -sphereX, 0.0f, 1.0,
-        //length: 12
-    
     };
    
     
@@ -107,18 +77,6 @@ int main(int argc, const char *argv[]){
     // Initalize Colors
     GLfloat colorData[] = {
         +1.0, +0.0, +0.0, +1.0,
-//        +1.0, +0.0, +0.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,
-//        +1.0, +0.0, +0.0, +1.0,
-//        +1.0, +0.0, +0.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,
-//        +1.0, +0.0, +0.0, +1.0,
-//        +1.0, +0.0, +0.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,
-//        +0.0, +1.0, +1.0, +1.0,        
-
     };
     
 
@@ -136,7 +94,7 @@ int main(int argc, const char *argv[]){
     
     
     // Initalize instancied positions
-    Container* container = new Container(SIZE);
+    Container* container = new Container(size, BATCH_SIZE);
     GLint positionLoc = program->getAttribLoc("aPosition");
     glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(positionLoc);
@@ -149,28 +107,6 @@ int main(int argc, const char *argv[]){
         //for the square
         0, //, 0, 3, 2,
         
-            
-//        0,4,1,
-//        0,9,4,
-//        9,5,4,
-//        4,5,8,
-//        4,8,1,
-//        8,10,1,
-//        8,3,10,
-//        5,3,8,
-//        5,2,3,
-//        2,7,3,
-//        7,10,3,
-//        7,6,10,
-//        7,11,6,
-//        11,0,6,
-//        0,1,6,
-//        6,1,10,
-//        9,0,11,
-//        9,11,2,
-//        9,2,5,
-//        7,2,11
-
     };
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
@@ -193,7 +129,7 @@ int main(int argc, const char *argv[]){
     glm::mat4 modelMat = glm::mat4();
     modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -10.0f));
     
-    glPointSize(5);
+    glPointSize(5.0);
     
 
     
@@ -203,6 +139,10 @@ int main(int argc, const char *argv[]){
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
+        
+        // TODO: Improve blending
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE);
         
         // Send Vertices
         glEnableVertexAttribArray(vertexLoc);
@@ -216,14 +156,15 @@ int main(int argc, const char *argv[]){
         
         // Send Positions
         glEnableVertexAttribArray(positionLoc);
+        size = container->update();
         GLfloat* positionData = container->getPositionBuffer();
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[2]);
-        glBufferData(GL_ARRAY_BUFFER, 4 * SIZE * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, SIZE * 4 * sizeof(GLfloat), positionData);
+        glBufferData(GL_ARRAY_BUFFER, 4 * size * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, size * 4 * sizeof(GLfloat), positionData);
         glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 0, 0);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myVBO[3]);
-        glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, SIZE);
+        glDrawElementsInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 0, size);
 
         
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));

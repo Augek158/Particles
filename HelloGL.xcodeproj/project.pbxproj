@@ -31,7 +31,6 @@
 		60ED98DD191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98DB191651C2000E698E /* InfoPlist.strings */; };
 		60ED98DF191651C2000E698E /* HelloGLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98DE191651C2000E698E /* HelloGLTests.m */; };
 		60ED98EA19165204000E698E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98E819165204000E698E /* main.cpp */; };
-		60FC6E83191CD6300040450B /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 60FC6E82191CD6300040450B /* texture.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +81,6 @@
 		60ED98DC191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		60ED98DE191651C2000E698E /* HelloGLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGLTests.m; sourceTree = "<group>"; };
 		60ED98E819165204000E698E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		60FC6E82191CD6300040450B /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = texture.jpg; path = ../../texture.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +217,6 @@
 			children = (
 				60D35FA71927C68A0004988F /* car.png */,
 				45B9AB811929F73B003ED531 /* baby.png */,
-				60FC6E82191CD6300040450B /* texture.jpg */,
 			);
 			name = Textures;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 				60D35FA81927C68A0004988F /* car.png in Resources */,
 				45B9AB821929F73B003ED531 /* baby.png in Resources */,
 				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
-				60FC6E83191CD6300040450B /* texture.jpg in Resources */,
 				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
 				60ED98CD191651C2000E698E /* Images.xcassets in Resources */,
 				60ED98C5191651C2000E698E /* Credits.rtf in Resources */,
