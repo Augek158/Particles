@@ -27,6 +27,7 @@ private:
     bool still;
     void checkBounds();
     float calculateEnergy();
+    bool collision();
     
 public:
     Particle();

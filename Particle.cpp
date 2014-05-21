@@ -23,7 +23,7 @@ Particle::Particle(){
     life = 0.0f;
     position = glm::vec3(-25.0f + ((double) 40 * rand() / (RAND_MAX)),
                           10.0f + ((double) 20 * rand() / (RAND_MAX)),
-                         -35.0f + ((double) 8 * rand() / (RAND_MAX)));
+                         -35.0f );//+ ((double) 8 * rand() / (RAND_MAX)));
     velocity = glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
@@ -34,12 +34,15 @@ glm::vec3 Particle::getPosition(){
 void Particle::update(){
     
     life += getDelta();
-    
 
-    if(!still){
+    float minEnergyValue = 0.1;
+
+    if(calculateEnergy() > minEnergyValue){
         velocity += glm::vec3(0.0f, 1.0f * gravity * getDelta() , 0.0f);
         checkBounds();
         position += velocity;
+    }else{
+        velocity = glm::vec3(0.0, 0.0, 0.0);
     }
     
 
@@ -54,15 +57,10 @@ double Particle::getDelta(){
 }
 
 void Particle::checkBounds(){
-
-    float minEnergyValue = 0.01;
     
     if(position.y < Physics::groundLevel){
         velocity *= -Physics::COR;
         position.y = Physics::groundLevel;
-    }
-    if(calculateEnergy() <  minEnergyValue){
-        still = true;
     }
     
 }
@@ -76,4 +74,18 @@ float Particle::calculateEnergy(){
     energy.y = absY + velocity.y * velocity.y;
     
     return energy.y;
+}
+
+bool Particle::collision(){
+    
+    GLfloat a = velocity.y * velocity.y;
+    GLfloat b = 2*velocity.y* (position.y - Physics::groundLevel);
+    GLfloat c = (position.y - Physics::groundLevel) * (position.y - Physics::groundLevel);
+    
+    GLfloat distance = 0; //?
+
+
+    GLfloat time = ( -b +- sqrt( b*b - 4*a*( c - distance) ) ) / (2 * a);
+
+    return false;
 }

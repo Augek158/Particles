@@ -20,7 +20,7 @@
 #include "Camera.h"
 #include "Physics.h"
 
-const int SIZE = 20;
+const int SIZE = 300000;
 
 //const int BATCH_SIZE = 20;
 
