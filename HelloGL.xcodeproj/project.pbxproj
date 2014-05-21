@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		45B9AB821929F73B003ED531 /* baby.png in Resources */ = {isa = PBXBuildFile; fileRef = 45B9AB811929F73B003ED531 /* baby.png */; };
 		45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B9AB831929FBB4003ED531 /* Camera.cpp */; };
+		45C377DC192BC6EB0083BD6F /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C377DA192BC6EB0083BD6F /* Physics.cpp */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
 		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
@@ -46,6 +47,8 @@
 		45B9AB811929F73B003ED531 /* baby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baby.png; sourceTree = "<group>"; };
 		45B9AB831929FBB4003ED531 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		45B9AB841929FBB4003ED531 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		45C377DA192BC6EB0083BD6F /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
+		45C377DB192BC6EB0083BD6F /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -171,6 +174,8 @@
 				60EAF93A1929F65300F22F4D /* Container.h */,
 				60EAF93D1929F9EB00F22F4D /* Particle.cpp */,
 				60EAF93E1929F9EB00F22F4D /* Particle.h */,
+				45C377DA192BC6EB0083BD6F /* Physics.cpp */,
+				45C377DB192BC6EB0083BD6F /* Physics.h */,
 				45B9AB831929FBB4003ED531 /* Camera.cpp */,
 				45B9AB841929FBB4003ED531 /* Camera.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
@@ -324,6 +329,7 @@
 				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
 				45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */,
 				60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */,
+				45C377DC192BC6EB0083BD6F /* Physics.cpp in Sources */,
 				601F5A901927933800CE3A86 /* Window.cpp in Sources */,
 				60D35FA119279DD80004988F /* Shader.cpp in Sources */,
 			);
