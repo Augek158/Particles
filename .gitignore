@@ -1,7 +1,8 @@
+# Xcode
 # Created by http://www.gitignore.io
 
-### Xcode ###
 build/
+.DS_Store
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -10,9 +11,14 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+*.xcworkspace
+!default.xcworkspace
 xcuserdata
-*.xccheckout
+profile
 *.moved-aside
 DerivedData
+.idea/
+Pods
+*.xccheckout
 *.xcuserstate
 
