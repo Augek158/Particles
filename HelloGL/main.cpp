@@ -85,8 +85,6 @@ int main(int argc, const char *argv[]){
     RenderProgram->bindFragDataLocation(0, "fragData");
     RenderProgram->link();
     
-    
-    
     // Initalizing TransformShader
     TransformProgram = new ShaderProgram();
     transformShader = new Shader("MyTransformShader.vs", GL_VERTEX_SHADER);
@@ -121,25 +119,17 @@ int main(int argc, const char *argv[]){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[PROTO_VBO]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(prototypeData), prototypeData , GL_STATIC_DRAW);
     
-    // First 4 values = position, last 3 = velocity
-    GLfloat particleData[] = {
-        -1.0, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
-        -0.5, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
-        +0.0, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
-        +0.5, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
-        
-    };
-    
-    int size = sizeof(particleData)/sizeof(GLfloat);
-    int numParticles = size/7;
+    int size = 1000000;
+    Container *container = new Container(size, 2);
+    GLfloat* particleData = container->getPositionBuffer();
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), particleData, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 7 * size * sizeof(GL_FLOAT), particleData, GL_STATIC_DRAW);
     
     glPointSize(3.0f);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), nullptr, GL_DYNAMIC_COPY);
+    glBufferData(GL_ARRAY_BUFFER, 7 * size * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
    
     
     glPointSize(2.0f);
@@ -161,11 +151,6 @@ int main(int argc, const char *argv[]){
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
     
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
-
-//    Container container = Container(10, 2);
-//    container.getPositionBuffer();
-    glm::vec3 vec = glm::vec3(1.0, 2.0, 3.0);
-    printf("%f\n",vec[1]);
     
     while(!window->shouldClose()){
         cam.pollUserInput(window);
@@ -214,7 +199,7 @@ int main(int argc, const char *argv[]){
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
         glVertexAttribDivisor(1, 1);
         
-        glDrawArraysInstanced(GL_POINTS, 0, 1, numParticles);
+        glDrawArraysInstanced(GL_POINTS, 0, 1, size);
 
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
 

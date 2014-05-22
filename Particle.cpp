@@ -22,9 +22,9 @@ Particle::Particle(){
     
     life = 0.0f;
 
-    position = glm::vec3(-25.0f + ((double) 40 * rand() / (RAND_MAX)),
-                          10.0f + ((double) 20 * rand() / (RAND_MAX)),
-                         -35.0f );//+ ((double) 8 * rand() / (RAND_MAX)));
+    position = glm::vec3(-1.0 + 2 * (double)rand()/RAND_MAX,
+                          0.0,
+                         0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
     velocity = glm::vec3(0.0f, -1.0f, 0.0f);
 }
 

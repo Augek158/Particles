@@ -24,20 +24,17 @@ Container::~Container(){
 GLfloat* Container::getPositionBuffer(){
     
     GLfloat* buffer = new GLfloat[7*numParticles];
-//    int index = 0;
-    for(int i = 0; i < numParticles; i+=7){
+    int index = 0;
+    for(int i = 0; i < numParticles; i++){
         Particle& p = container[i];
         for(int j = 0; j < 3; j++){
-            buffer[i + j] = p.getPosition()[j];
+            buffer[index + j] = p.getPosition()[j];
         }
-        buffer[i + 3] = 1.0f;
-        for(int j = 0; i < 3; j++){
-             buffer[i + j] = p.getVelocity()[j];
+        buffer[index + 3] = 1.0f;
+        for(int j = 0; j < 3; j++){
+             buffer[index + j + 4] = p.getVelocity()[j];
         }
-    }
-    
-    for (int i = 0; i < numParticles * 7; i++) {
-        printf("%f\n",buffer[i]);
+        index+=7;
     }
     return buffer;
 }
