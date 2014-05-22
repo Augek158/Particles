@@ -32,6 +32,7 @@ private:
 public:
     Particle();
     glm::vec3 getPosition();
+    glm::vec3 getVelocity();
     double getDelta();
     float getLife();
     void update();

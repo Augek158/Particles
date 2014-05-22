@@ -23,6 +23,7 @@
 		60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60D35FA21927A0330004988F /* ShaderProgram.cpp */; };
 		60D35FA81927C68A0004988F /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D35FA71927C68A0004988F /* car.png */; };
 		60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D35FA91927C9420004988F /* libIL.1.dylib */; };
+		60DF67FF192D522C001AF593 /* MyTransformShader.vs in Resources */ = {isa = PBXBuildFile; fileRef = 60DF67FE192D522C001AF593 /* MyTransformShader.vs */; };
 		60EAF93B1929F65300F22F4D /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EAF9391929F65300F22F4D /* Container.cpp */; };
 		60EAF93F1929F9EB00F22F4D /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60EAF93D1929F9EB00F22F4D /* Particle.cpp */; };
 		60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98BD191651C2000E698E /* InfoPlist.strings */; };
@@ -67,6 +68,7 @@
 		60D35FA31927A0330004988F /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
 		60D35FA71927C68A0004988F /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = car.png; sourceTree = "<group>"; };
 		60D35FA91927C9420004988F /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = ../../../../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libIL.1.dylib; sourceTree = "<group>"; };
+		60DF67FE192D522C001AF593 /* MyTransformShader.vs */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; name = MyTransformShader.vs; path = ../MyTransformShader.vs; sourceTree = "<group>"; };
 		60EAF9391929F65300F22F4D /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Container.cpp; sourceTree = "<group>"; };
 		60EAF93A1929F65300F22F4D /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
 		60EAF93D1929F9EB00F22F4D /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Particle.cpp; path = ../Particle.cpp; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		6091198219166CFB00CEE3CB /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				60DF67FE192D522C001AF593 /* MyTransformShader.vs */,
 				6091198319166D7D00CEE3CB /* MyVertexShader.vs */,
 				6091198719166DA400CEE3CB /* MyFragmentShader.fs */,
 			);
@@ -303,6 +306,7 @@
 				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
 				60ED98CD191651C2000E698E /* Images.xcassets in Resources */,
 				60ED98C5191651C2000E698E /* Credits.rtf in Resources */,
+				60DF67FF192D522C001AF593 /* MyTransformShader.vs in Resources */,
 				6091198419166D7D00CEE3CB /* MyVertexShader.vs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

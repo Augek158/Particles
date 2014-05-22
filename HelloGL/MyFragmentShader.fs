@@ -1,11 +1,8 @@
-#version 150 core
+#version 330 core
 
-uniform sampler2D tex;
 
-in vec2 vTexcoord;
-in vec4 vColor;
 out vec4 fragData;
 
 void main(){
-    fragData = vColor;
+    fragData = vec4(1.0, 1.0, 1.0, 1.0);
 }

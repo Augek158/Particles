@@ -25,11 +25,15 @@ Particle::Particle(){
     position = glm::vec3(-25.0f + ((double) 40 * rand() / (RAND_MAX)),
                           10.0f + ((double) 20 * rand() / (RAND_MAX)),
                          -35.0f );//+ ((double) 8 * rand() / (RAND_MAX)));
-    velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+    velocity = glm::vec3(0.0f, -1.0f, 0.0f);
 }
 
 glm::vec3 Particle::getPosition(){
     return position;
+}
+
+glm::vec3 Particle::getVelocity(){
+    return velocity;
 }
 
 void Particle::update(){
