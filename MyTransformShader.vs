@@ -1,12 +1,12 @@
 #version 150 core
 
-in vec4 inPosition;
-in vec3 inVelocity;
+in vec4 aPosition;
+in vec3 aVelocity;
 
-out vec4 outPosition;
-out vec3 outVelocity;
+out vec4 vPosition;
+out vec3 vVelocity;
 
 void main(){
-    outPosition = inPosition;
-    outVelocity = inVelocity;
+    vPosition = aPosition;
+    vVelocity = aVelocity;
 }
