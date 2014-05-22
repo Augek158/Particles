@@ -32,8 +32,10 @@ public:
     void link();
     void bindFragDataLocation(GLint colorAttachment, std::string name);
     void use();
+    GLuint getProgramID();
     GLint getAttribLoc(std::string name);
     GLint getUniformLoc(std::string name);
+
     
 };
 

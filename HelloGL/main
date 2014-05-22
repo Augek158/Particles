@@ -48,8 +48,8 @@ int main(int argc, const char *argv[]){
     transformShader = new Shader("MyTransformShader.vs", GL_VERTEX_SHADER);
     
     TransformProgram->attachShader(transformShader);
-    const GLchar* feedbackVaryings[] = {"outPosition", "outVelocity"};
-    glTransformFeedbackVaryings(TransformProgram->getProgramID(), 2, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
+    const GLchar* feedbackVaryings[] = {"outPosition"};
+    glTransformFeedbackVaryings(TransformProgram->getProgramID(), 1, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
     
     TransformProgram->link();
     TransformProgram->use();
@@ -66,24 +66,16 @@ int main(int argc, const char *argv[]){
     
     std::cout << glGetString(GL_VERSION) << std::endl;
     
-    GLfloat particleData[] = {
-                +0.0, +1.0, -0.0, +1.0, 2.0, 2.0, 2.0,
-                -1.0, -1.0, -0.0, +1.0, 2.0, 2.0, 2.0,
-                +1.0, -1.0, -0.0, +1.0, 2.0, 2.0, 2.0,
-    };
+    GLfloat particleData[] = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f };
     
     GLuint vbo;
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), particleData, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), data, GL_STATIC_DRAW);
     
     GLint positionLoc = TransformProgram->getAttribLoc("inPosition");
     glEnableVertexAttribArray(positionLoc);
-    glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
-    
-    GLint velocityLoc = TransformProgram->getAttribLoc("inVelocity");
-    glEnableVertexAttribArray(velocityLoc);
-    glVertexAttribPointer(velocityLoc, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
+    glVertexAttribPointer(positionLoc, 1, GL_FLOAT, GL_FALSE, 0, 0);
     
     GLuint tbo;
     glGenBuffers(1, &tbo);
@@ -91,18 +83,7 @@ int main(int argc, const char *argv[]){
     glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), nullptr, GL_STATIC_READ);
     
     glEnable(GL_RASTERIZER_DISCARD);
-    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, tbo);
     
-    glBeginTransformFeedback(GL_POINTS);
-    glDrawArrays(GL_POINTS, 0, 21);
-    glEndTransformFeedback();
-    
-    GLfloat feedback[21];
-    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(feedback), feedback);
-    
-    for (int i = 0; i < 21; i++) {
-        printf("%f\n",feedback[i]);
-    }
 
 
     
