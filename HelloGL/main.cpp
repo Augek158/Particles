@@ -124,6 +124,7 @@ int main(int argc, const char *argv[]){
     
     while(!window->shouldClose()){
         
+        // Transform shader calculates the new positions/velocities
         TransformProgram->use();
         
         glEnable(GL_RASTERIZER_DISCARD);
@@ -144,8 +145,10 @@ int main(int argc, const char *argv[]){
         
         std::swap(vbo[dataVBO],vbo[transVBO]);
         
-        glDisable(GL_RASTERIZER_DISCARD);
+        // Vertex shader picks up the generated VBO and uses this for drawing
+
         RenderProgram->use();
+        glDisable(GL_RASTERIZER_DISCARD);
         
         initUniforms(RenderProgram, window);
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
