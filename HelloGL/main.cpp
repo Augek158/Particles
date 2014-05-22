@@ -77,13 +77,11 @@ int main(int argc, const char *argv[]){
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), particleData, GL_STATIC_DRAW);
     
-    GLint positionLoc = TransformProgram->getAttribLoc("aPosition");
-    glEnableVertexAttribArray(positionLoc);
-    glVertexAttribPointer(positionLoc, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
     
-    GLint velocityLoc = TransformProgram->getAttribLoc("aVelocity");
-    glEnableVertexAttribArray(velocityLoc);
-    glVertexAttribPointer(velocityLoc, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
     
     GLuint tbo;
     glGenBuffers(1, &tbo);
@@ -124,13 +122,11 @@ int main(int argc, const char *argv[]){
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
     
-    GLint positionLoc1 = RenderProgram->getAttribLoc("aPosition");
-    glEnableVertexAttribArray(positionLoc1);
-    glVertexAttribPointer(positionLoc1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
 
-    GLint colorLoc = RenderProgram->getAttribLoc("aColor");
-    glEnableVertexAttribArray(colorLoc);
-    glVertexAttribPointer(colorLoc, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
     
     
     while(!window->shouldClose()){
