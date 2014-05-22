@@ -17,9 +17,34 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+GLuint protoVBO = 0;
+GLuint dataVBO = 1;
+GLuint transVBO = 2;
+
+void initUniforms(ShaderProgram* RenderProgram, Window* window){
+    
+    GLint modelLoc = RenderProgram->getUniformLoc("uMMatrix");
+    GLint projectionLoc = RenderProgram->getUniformLoc("uPMatrix");
+    GLint viewLoc = RenderProgram->getUniformLoc("uVMatrix");
+    
+    float aspect = (float)window->getFrameBufferWidth()/window->getFrameBufferHeight();
+    
+    glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
+    glm::mat4 viewMat = glm::mat4();
+    glm::mat4 modelMat = glm::mat4();
+    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
+    
+    
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+    
+    
+}
+
 int main(int argc, const char *argv[]){
     
-    Window* window = new Window(640, 360, "Modern OpenGL");
+    Window* window = new Window(640, 360, "Particles");
     ShaderProgram* RenderProgram;
     ShaderProgram* TransformProgram;
     
@@ -41,7 +66,7 @@ int main(int argc, const char *argv[]){
     RenderProgram->bindFragDataLocation(0, "fragData");
     RenderProgram->link();
     
-
+    
     
     // Initalizing TransformShader
     TransformProgram = new ShaderProgram();
@@ -66,74 +91,76 @@ int main(int argc, const char *argv[]){
     
     std::cout << glGetString(GL_VERSION) << std::endl;
     
-    GLfloat particleData[] = {
-                +0.0, +1.0, -0.0, +1.0, 1.0, 0.0, 0.0,
-                -1.0, -1.0, -0.0, +1.0, 0.0, 1.0, 0.0,
-                +1.0, -1.0, -0.0, +1.0, 0.0, 0.0, 1.0,
+    GLuint vbo[3];
+    glGenBuffers(3, vbo);
+    
+    GLfloat prototypeData[] = {
+        0.5, 0.5, -0.0
     };
     
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[protoVBO]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(prototypeData), prototypeData , GL_STATIC_DRAW);
+    
+    // First 4 values = position, last 3 = velocity
+    GLfloat particleData[] = {
+        -1.0, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
+        -0.5, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
+        +0.0, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
+        +0.5, +0.5, -0.0, +1.0, 0.0,-1.0, 0.0,
+    };
+    
+    int size = sizeof(particleData)/sizeof(GLfloat);
+    int numParticles = size/7;
+    
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[dataVBO]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), particleData, GL_STATIC_DRAW);
     
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
+    glPointSize(3.0f);
     
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[transVBO]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), nullptr, GL_DYNAMIC_COPY);
     
-    GLuint tbo;
-    glGenBuffers(1, &tbo);
-    glBindBuffer(GL_ARRAY_BUFFER, tbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(particleData), nullptr, GL_STATIC_READ);
-    
-    glEnable(GL_RASTERIZER_DISCARD);
-    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, tbo);
-    
-    glBeginTransformFeedback(GL_POINTS);
-    glDrawArrays(GL_POINTS, 0, 21);
-    glEndTransformFeedback();
-    
-    GLfloat feedback[21];
-    glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, sizeof(feedback), feedback);
-    
-    for (int i = 0; i < 21; i++) {
-        printf("%f\n",feedback[i]);
-    }
-    
-    std::swap(vbo,tbo);
-    glDisable(GL_RASTERIZER_DISCARD);
-    glUseProgram(RenderProgram->getProgramID());
-    
-    GLint modelLoc = RenderProgram->getUniformLoc("uMMatrix");
-    GLint projectionLoc = RenderProgram->getUniformLoc("uPMatrix");
-    GLint viewLoc = RenderProgram->getUniformLoc("uVMatrix");
-    
-    float aspect = (float)window->getFrameBufferWidth()/window->getFrameBufferHeight();
-    
-    glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
-    glm::mat4 viewMat = glm::mat4();
-    glm::mat4 modelMat = glm::mat4();
-    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
-
-    
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
-
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
     
     
     while(!window->shouldClose()){
+        
+        TransformProgram->use();
+        
+        glEnable(GL_RASTERIZER_DISCARD);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, vbo[dataVBO]);
+        glEnableVertexAttribArray(1);
+        glVertexAttribDivisor(1, 0);
+
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
+        
+        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, vbo[transVBO]);
+        
+        glBeginTransformFeedback(GL_POINTS);
+        glDrawArrays(GL_POINTS, 0, size);
+        glEndTransformFeedback();
+        
+        std::swap(vbo[dataVBO],vbo[transVBO]);
+        
+        glDisable(GL_RASTERIZER_DISCARD);
+        RenderProgram->use();
+        
+        initUniforms(RenderProgram, window);
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, vbo[protoVBO]);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, vbo[dataVBO]);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
+        glVertexAttribDivisor(1, 1);
+        
+        glDrawArraysInstanced(GL_POINTS, 0, 1, numParticles);
         
         glfwPollEvents();
         window->swapBuffers();
@@ -142,6 +169,7 @@ int main(int argc, const char *argv[]){
     delete window;
     delete RenderProgram;
     delete TransformProgram;
+    glDeleteBuffers(3, vbo);
     glfwTerminate();
     return 0;
 }
