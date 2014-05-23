@@ -8,8 +8,8 @@
 
 #include "Renderer.h"
 
-Renderer::Renderer(GLuint batchSize):
-    batchSize(batchSize){
+Renderer::Renderer(GLuint batchSize, GLuint interval):
+    batchSize(batchSize), interval(interval){
         container = new Container();
 }
 
@@ -74,7 +74,7 @@ void Renderer::initBuffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
     glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
     
-    glPointSize(3.0f);
+    glPointSize(1.0f);
 
 }
 
@@ -170,11 +170,12 @@ bool Renderer::render(){
 }
 
 void Renderer::spawnParticles(){
-    if(frameCount % 5 == 0){
+    if(frameCount % interval == 0){
         GLfloat* particleData = container->getNewParticleData(batchSize);
         if(particleData != nullptr){
             glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
             particles = container->getNumberParticles();
+//            printf("particels: %d\n",particles);
         }
     }
 }

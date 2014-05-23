@@ -8,6 +8,9 @@
 
 #include "Container.h"
 
+/*
+ Default constructor
+ */
 Container::Container(){
         
     for(int i = 0; i < MAX_SIZE; i++){
@@ -20,27 +23,34 @@ Container::~Container(){
     
 }
 
-
+/*
+ This function generates a subbuffer with the positions and velocities
+ of new particles. The subbuffer can then be used to populate a GL_ARRAY_BUFFER.
+*/
 GLfloat* Container::getNewParticleData(int particles){
     
-    if(offset + particles > MAX_SIZE){
-        
-        return nullptr;
-    }
+    // Return nullptr if theres no room for more particles
+    if(offset + particles > MAX_SIZE) return nullptr;
     
     GLfloat* subBuffer = new GLfloat[7 * particles];
     int index = 0;
+    
+    // Populating the subbuffer
     for(int i = offset; i < offset + particles; i++){
         Particle &p = container[i];
         for (int j = 0; j < 3; j++) {
             subBuffer[index + j] = p.getPosition()[j];
         }
+        
+        // set w-cordinate = 1.0
         subBuffer[index + 3] = 1.0;
         for(int j = 0; j < 3; j++){
             subBuffer[index + 4 + j] = p.getVelocity()[j];
         }
         index+=7;
     }
+    
+    // Update values so next call on this function is correct.
     addedParticles = particles;
     offset += particles;
     return subBuffer;

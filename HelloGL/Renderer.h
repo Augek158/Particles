@@ -16,7 +16,7 @@
 #define PROJECTION_LOC 8
 
 // Buffer holds maximum 1 million particles.
-#define MAX_BUFFER_SIZE 10000000
+#define MAX_BUFFER_SIZE 1000000
 
 #include <iostream>
 #include <cmath>
@@ -55,14 +55,14 @@ private:
     GLuint particles;
     GLuint frameCount;
     GLuint batchSize;
-    GLuint bufferOffset;
+    GLuint interval;
 
     void update();
     void draw();
     void setUniforms();
     void spawnParticles();
 public:
-    Renderer(GLuint batchSize);
+    Renderer(GLuint batchSize, GLuint interval);
     ~Renderer();
     void initWindow();
     void initShaderPrograms();
