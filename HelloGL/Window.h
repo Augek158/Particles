@@ -43,6 +43,7 @@ public:
     GLFWwindow* getWindow();
     bool isGrabbed();
     glm::vec2 getDeltaMousePosition();
+    glm::vec2 getMousePos();
 };
 
 

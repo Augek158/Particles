@@ -17,19 +17,36 @@
 Particle::Particle(){
 
     gravity = -9.82 / 10;
-    still =false;
     mass = 1.0;
     life = 0.0f;
+    dimension_3 = false;
 
     position = glm::vec3(-25.0f + ((double) 50 * rand() / (RAND_MAX)),
                           10.0f + ((double) 9 * rand() / (RAND_MAX)),
-                         -35.0f + ((double) 8 * rand() / (RAND_MAX)));
+                         -35.0f ); //+ ((double) 8 * rand() / (RAND_MAX)));
     
 
     float speed = -2 + 4* ((double) rand() / (RAND_MAX));
     
-    velocity = glm::vec3( speed, speed, speed);
+    velocity = glm::vec3( speed, speed, 0.0f);
 }
+
+Particle::Particle(glm::vec3 thePosition){
+
+    gravity = -9.82 / 10;
+    mass = 1.0;
+    life = 0.0f;
+    dimension_3 = false;
+
+    position = thePosition;
+    
+
+    float speed = -2 + 4* ((double) rand() / (RAND_MAX));
+    
+    velocity = glm::vec3( speed, speed, 0.0f);
+
+}
+
 
 glm::vec3 Particle::getPosition(){
     return position;
@@ -95,23 +112,23 @@ void Particle::checkBounds(){
         velocity = (COR * newvelocity);
         position.x = BoundingEast;
     }
-    
-    if(position.z < BoundingFarthest){
-        glm::vec3 normal = glm::vec3(0.0f, 0.0f, 1.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+    if(dimension_3){
+        if(position.z < BoundingFarthest){
+            glm::vec3 normal = glm::vec3(0.0f, 0.0f, 1.0f);
+            glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+            
+            velocity = (COR * newvelocity);
+            position.z = BoundingFarthest;
+        }
         
-        velocity = (COR * newvelocity);
-        position.z = BoundingFarthest;
+        if(position.z > BoundingNearest){
+            glm::vec3 normal = glm::vec3(0.0f, 0.0f, -1.0f);
+            glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+            
+            velocity = (COR * newvelocity);
+            position.z = BoundingNearest;
+        }
     }
-    
-    if(position.z > BoundingNearest){
-        glm::vec3 normal = glm::vec3(0.0f, 0.0f, -1.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.z = BoundingNearest;
-    }
-    
 }
 
 float Particle::calculateEnergy(){

@@ -7,6 +7,8 @@
 //
 
 #define GLFW_INCLUDE_GLCOREARB
+
+#define GLFWCALL
 #include <iostream>
 #include <cmath>
 #include "Shader.h"
@@ -20,9 +22,18 @@
 #include "Camera.h"
 #include "Physics.h"
 
+#include <GLFW/glfw3.h>
 
-int size = 10;
+int size = 0;
 const int BATCH_SIZE = 10;
+
+
+void mousePressed(int a, int b) {
+
+
+std::cout << "asd";
+    //return NULL;
+}
 
 
 int main(int argc, const char *argv[]){
@@ -131,15 +142,16 @@ int main(int argc, const char *argv[]){
     
     glPointSize(5.0);
     
-
+    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
     
     while(!window->shouldClose()){
         
-        cam.pollUserInput(window);
+        //cam.pollUserInput(window);
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
         
+
         // TODO: Improve blending
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
@@ -156,7 +168,7 @@ int main(int argc, const char *argv[]){
         
         // Send Positions
         glEnableVertexAttribArray(positionLoc);
-        size = container->update();
+       // size = container->update();
         GLfloat* positionData = container->getPositionBuffer();
         glBindBuffer(GL_ARRAY_BUFFER, myVBO[2]);
         glBufferData(GL_ARRAY_BUFFER, 4 * size * sizeof(GL_FLOAT), NULL, GL_STREAM_DRAW);
@@ -170,8 +182,35 @@ int main(int argc, const char *argv[]){
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
 
+        //unprojecting mouse coordinates to 3D space.
+        
+        if(glfwGetMouseButton(window->getWindow(), 0)){
+            GLint m_viewport[4];
+            glGetIntegerv( GL_VIEWPORT, m_viewport);
+            glm::vec4 viewport = glm::vec4(m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
+            
+            GLdouble x,y;
+            glfwGetCursorPos(window->getWindow(), &x, &y);
+            y = m_viewport[3] - y;
+            
+           // printf("%i, %i, %i, %i \n", m_viewport[0], m_viewport[1], m_viewport[2], m_viewport[3]);
+            
+            // printf("%f, %f \n",window->getMousePos().x, window->getMousePos().y);
 
-        glfwPollEvents();
+            glm::vec3 near = glm::unProject(glm::vec3(x,y, 0.0) , cam.getMatrix(), projectionMat, viewport);
+            glm::vec3 far = glm::unProject(glm::vec3(x,y, 1.0) , cam.getMatrix(), projectionMat, viewport);
+            
+            glm::vec3 mouseInWorld = far - near;
+            
+            //printf("%f, %f %f \n",near.x, near.y, near.z);
+
+            printf("%f, %f %f \n",mouseInWorld.x, mouseInWorld.y, mouseInWorld.z);
+
+            size = container->spawnParticlesAt(1, glm::vec3(mouseInWorld.x, mouseInWorld.y, mouseInWorld.z));
+        }
+        
+        
+
         window->swapBuffers();
     }
     

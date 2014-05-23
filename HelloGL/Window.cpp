@@ -85,11 +85,11 @@ void Window::swapBuffers(){
         GLdouble x,y;
         glfwGetCursorPos(window, &x, &y);
         _lastMousePos = glm::vec2(-x,-y);
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
     if(_grabbed && glfwGetKey(window, GLFW_KEY_ESCAPE)){
         _grabbed = false;
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+       // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
     GLdouble x,y;
     glfwGetCursorPos(window, &x, &y);
@@ -122,4 +122,11 @@ bool Window::isGrabbed(){
 
 glm::vec2 Window::getDeltaMousePosition(){
     return _deltaMousePos;
+}
+
+glm::vec2 Window::getMousePos(){
+    GLdouble x,y;
+    glfwGetCursorPos(window, &x, &y);
+    return glm::vec2(x, y);
+
 }

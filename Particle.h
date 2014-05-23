@@ -28,7 +28,7 @@ private:
     void checkBounds();
     float calculateEnergy();
     bool collision();
-    
+    bool dimension_3;
     
 public:
     Particle();
@@ -36,6 +36,7 @@ public:
     double getDelta();
     float getLife();
     void update();
+    Particle(glm::vec3 thePosition);
 };
 
 #endif /* defined(__HelloGL__Particle__) */

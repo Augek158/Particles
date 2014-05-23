@@ -30,8 +30,8 @@ const float BoundingSouth = -20.0;
 const float BoundingNorth = 20.0;
     
 // X-axis bounds
-const float BoundingWest = -50.0;
-const float BoundingEast = 50.0;
+const float BoundingWest = -40.0;
+const float BoundingEast = 40.0;
 
 //Z-axis bounds
 const float BoundingNearest = 20.0;

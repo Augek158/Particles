@@ -29,6 +29,7 @@ public:
     GLfloat* getPositionBuffer();
     int update();
     void spawn(int particles);
+    int spawnParticlesAt(int particles, glm::vec3 thePosition);
 };
 
 #endif /* defined(__HelloGL__ParticleContainer__) */

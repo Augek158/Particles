@@ -27,7 +27,7 @@ GLfloat* Container::getPositionBuffer(){
     int index = 0;
     for(int i = 0; i < numParticles; i++){
         Particle& p = container[i];
-        p.update();
+       // p.update();
         positionBuffer[index] = p.getPosition().x;
         positionBuffer[index + 1] = p.getPosition().y;
         positionBuffer[index + 2] = p.getPosition().z;
@@ -62,6 +62,22 @@ void Container::spawn(int particles){
     } else{
        // printf("Too many particles! Cannot add %d particles\n", particles);
     }
+    
+}
+
+int Container::spawnParticlesAt(int particles, glm::vec3 thePosition){
+
+    
+    if((numParticles + particles) < MAX_PARTICLES){ // If there are room for the new particles.
+        for(int i = numParticles; i < (numParticles + particles); i++){
+            container[i] = *new Particle(thePosition);
+        }
+        numParticles += particles; // Update number of particles in system.
+    } else{
+       // printf("Too many particles! Cannot add %d particles\n", particles);
+    }
+    
+    return numParticles;
     
 }
 
