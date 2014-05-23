@@ -16,16 +16,20 @@
 
 Particle::Particle(){
 
-    weight = 1000.0f;
     gravity = -9.82 / 10;
     still =false;
-    
+    mass = 1.0;
     life = 0.0f;
 
     position = glm::vec3(-1.0 + 2 * (double)rand()/RAND_MAX,
-                          0.0,
+                          -1.0 + 2 * (double)rand()/RAND_MAX,
                          0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
     velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+
+
+    float speed = -2 + 4* ((double) rand() / (RAND_MAX));
+//    velocity = glm::vec3( speed, speed, 0);
+
 }
 
 glm::vec3 Particle::getPosition(){
@@ -60,30 +64,75 @@ double Particle::getDelta(){
 }
 
 void Particle::checkBounds(){
+
     
-    if(position.y < Physics::groundLevel){
-        velocity *= -Physics::COR;
-        position.y = Physics::groundLevel;
+    if(position.y < BoundingSouth){
+  
+        glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.y = BoundingSouth;
+        
+    }
+    
+    if(position.y > BoundingNorth){
+  
+        glm::vec3 normal = glm::vec3(0.0f, -1.0f, 0.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.y = BoundingNorth;
+    }
+    
+    if(position.x < BoundingWest){
+        glm::vec3 normal = glm::vec3(1.0f, 0.0f, 0.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.x = BoundingWest;
+    }
+    
+    if(position.x > BoundingEast){
+        glm::vec3 normal = glm::vec3(-1.0f, 0.0f, 0.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.x = BoundingEast;
+    }
+    
+    if(position.z < BoundingFarthest){
+        glm::vec3 normal = glm::vec3(0.0f, 0.0f, 1.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.z = BoundingFarthest;
+    }
+    
+    if(position.z > BoundingNearest){
+        glm::vec3 normal = glm::vec3(0.0f, 0.0f, -1.0f);
+        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
+        
+        velocity = (COR * newvelocity);
+        position.z = BoundingNearest;
     }
     
 }
 
 float Particle::calculateEnergy(){
-    glm::vec3 energy = glm::vec3();
+    
+    float v = sqrt( velocity.x * velocity.x + velocity.y * velocity.y );
+    float kineticEnergy = mass * v * v * 0.5;
+    float potentialEnergy = mass * Physics::gravity * sqrt((position.y - BoundingSouth) * (position.y - BoundingSouth) );
 
-    
-    float absY = sqrt((position.y - Physics::groundLevel) * (position.y - Physics::groundLevel) );
-    
-    energy.y = absY + velocity.y * velocity.y;
-    
-    return energy.y;
+    return (kineticEnergy + potentialEnergy);
 }
 
 bool Particle::collision(){
     
     GLfloat a = velocity.y * velocity.y;
-    GLfloat b = 2*velocity.y* (position.y - Physics::groundLevel);
-    GLfloat c = (position.y - Physics::groundLevel) * (position.y - Physics::groundLevel);
+    GLfloat b = 2*velocity.y* (position.y - BoundingSouth);
+    GLfloat c = (position.y - BoundingSouth) * (position.y - BoundingSouth);
     
     GLfloat distance = 0; //?
 

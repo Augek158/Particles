@@ -17,11 +17,24 @@ class Physics {
 
   
 public:
-    static constexpr float COR = 0.7;
-    static constexpr float gravity = 9.82;
-    static constexpr float groundLevel = -20.0;
 
+    static constexpr float gravity = 9.82;
+    
+ 
 };
 
+const float COR = 0.7;
+
+// Y-axis bounds
+const float BoundingSouth = -20.0;
+const float BoundingNorth = 20.0;
+    
+// X-axis bounds
+const float BoundingWest = -50.0;
+const float BoundingEast = 50.0;
+
+//Z-axis bounds
+const float BoundingNearest = 20.0;
+const float BoundingFarthest = -20.0;
 
 #endif /* defined(__HelloGL__Physics__) */

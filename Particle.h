@@ -23,11 +23,12 @@ private:
     glm::vec3 velocity;
     float life;
     float gravity;
-    float weight;
+    float mass;
     bool still;
     void checkBounds();
     float calculateEnergy();
     bool collision();
+    
     
 public:
     Particle();

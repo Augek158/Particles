@@ -17,6 +17,7 @@
 class Container {
 private:
     static const int MAX_PARTICLES = 10000000;
+
     Particle container[MAX_PARTICLES];
     int numParticles;
     int frameCount;
