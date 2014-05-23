@@ -36,6 +36,7 @@ public:
     double getDelta();
     float getLife();
     void update();
+    void print();
 };
 
 #endif /* defined(__HelloGL__Particle__) */

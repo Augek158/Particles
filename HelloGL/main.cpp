@@ -7,15 +7,26 @@
 //
 
 #include "Renderer.h"
+#include "Container.h"
 
 int main(int argc, const char *argv[]){
     
-    Renderer render(10000);
+    Renderer render(5);
     render.initWindow();
     render.initShaderPrograms();
     render.initBuffers();
     render.initCamera();
     render.render();
+//    
+//    Container* cont = new Container();
+//    
+//    for(int i  = 0; i < 10000; i++){
+//        cont->getNewParticleData(20);
+//    }
+
+//    printf("\n\n");
+//    cont->spawnParticles(1);
+//    cont->print(cont->getPositionBuffer());
     
     return 0;
 }

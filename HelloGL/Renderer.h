@@ -10,9 +10,13 @@
 #define __HelloGL__Renderer__
 
 #define GLFW_INCLUDE_GLCOREARB
-#define viewLoc 0
-#define modelLoc 4
-#define projectionLoc 8
+
+#define VIEW_LOC 0
+#define MODEL_LOC 4
+#define PROJECTION_LOC 8
+
+// Buffer holds maximum 1 million particles.
+#define MAX_BUFFER_SIZE 1000000
 
 #include <iostream>
 #include <cmath>
@@ -44,16 +48,21 @@ private:
     ShaderProgram* renderProgram;
     ShaderProgram* transformProgram;
     Container* container;
-    GLuint vao;
-    GLuint vbo[3];
-    int particles;
     Camera cam;
     
+    GLuint vao;
+    GLuint vbo[3];
+    GLuint particles;
+    GLuint frameCount;
+    GLuint batchSize;
+    GLuint bufferOffset;
+
     void update();
     void draw();
     void setUniforms();
+    void spawnParticles();
 public:
-    Renderer(int startingParticles);
+    Renderer(GLuint batchSize);
     ~Renderer();
     void initWindow();
     void initShaderPrograms();

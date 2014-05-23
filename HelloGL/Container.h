@@ -9,6 +9,9 @@
 #ifndef __HelloGL__Container__
 #define __HelloGL__Container__
 
+// Maximum particles the system can handle.
+#define MAX_SIZE 1000000
+
 #include "Particle.h"
 #include <iostream>
 #include <vector>
@@ -16,19 +19,21 @@
 
 class Container {
 private:
-    static const int MAX_PARTICLES = 10000000;
-    Particle container[MAX_PARTICLES];
     int numParticles;
     int frameCount;
-    int batchSize;
+    int addedParticles;
+    int offset;
+    Particle container[MAX_SIZE];
     
     double getDelta();
 public:
-    Container(int numParticles, int batchSize);
+    Container();
     virtual ~Container();
-    GLfloat* getPositionBuffer();
-    int update();
-    void spawn(int particles);
+    GLfloat* getNewParticleData(int particles);
+    void spawnParticles(int particles);
+    void print();
+    int getAddedParticles();
+    int getNumberParticles();
 };
 
 #endif /* defined(__HelloGL__ParticleContainer__) */

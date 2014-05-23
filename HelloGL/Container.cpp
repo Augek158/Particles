@@ -8,65 +8,57 @@
 
 #include "Container.h"
 
-Container::Container(int numParticles, int batchSize){
-    this->numParticles = numParticles;
-    this->batchSize = batchSize;
-    for (int i = 0; i < numParticles; i++) {
+Container::Container(){
+        
+    for(int i = 0; i < MAX_SIZE; i++){
         container[i] = *new Particle();
     }
-    frameCount = 0;
+    offset = 0;
 }
 
 Container::~Container(){
-
+    
 }
 
-GLfloat* Container::getPositionBuffer(){
+
+GLfloat* Container::getNewParticleData(int particles){
     
-    GLfloat* buffer = new GLfloat[7*numParticles];
+    if(offset + particles > MAX_SIZE) return nullptr;
+    
+    GLfloat* subBuffer = new GLfloat[7 * particles];
     int index = 0;
-    for(int i = 0; i < numParticles; i++){
-        Particle& p = container[i];
-        for(int j = 0; j < 3; j++){
-            buffer[index + j] = p.getPosition()[j];
+    for(int i = offset; i < offset + particles; i++){
+        Particle &p = container[i];
+        for (int j = 0; j < 3; j++) {
+            subBuffer[index + j] = p.getPosition()[j];
         }
-        buffer[index + 3] = 1.0f;
+        subBuffer[index + 3] = 1.0;
         for(int j = 0; j < 3; j++){
-             buffer[index + j + 4] = p.getVelocity()[j];
+            subBuffer[index + 4 + j] = p.getVelocity()[j];
         }
         index+=7;
     }
-    return buffer;
+    addedParticles = particles;
+    offset += particles;
+    return subBuffer;
 }
 
-/*
-Spawn batchSize particles twice a second. Returns the size of the array with the new particles.
-*/
-int Container::update(){
-    frameCount++;
-    if(frameCount % 5 == 0){
-        spawn(batchSize);
-        frameCount = 0;
-        //printf("Particles: %d\n", numParticles);
+void Container::print(){
+    for(int i = 0; i < offset; i++){
+        container[i].print();
+        printf("\n");
     }
-    return numParticles;
-}
-
-/*
-Spawns new particles to the system.
-*/
-void Container::spawn(int particles){
-    if((numParticles + particles) < MAX_PARTICLES){ // If there are room for the new particles.
-        for(int i = numParticles; i < (numParticles + particles); i++){
-            container[i] = *new Particle();
-        }
-        numParticles += particles; // Update number of particles in system.
-    } else{
-       // printf("Too many particles! Cannot add %d particles\n", particles);
-    }
-    
 }
 
 double Container::getDelta(){
     return 1.0f / 60.0f;
 }
+
+int Container::getAddedParticles(){
+    return addedParticles;
+}
+
+int Container::getNumberParticles(){
+    return offset;
+}
+

@@ -8,8 +8,9 @@
 
 #include "Renderer.h"
 
-Renderer::Renderer(int startingParticles): particles(startingParticles){
-    
+Renderer::Renderer(GLuint batchSize):
+    batchSize(batchSize){
+        container = new Container();
 }
 
 void Renderer::initWindow(){
@@ -37,6 +38,7 @@ void Renderer::initShaderPrograms(){
     transformProgram = new ShaderProgram();
     transformProgram->attachShader(transformShader);
     
+    // Initalizing the feedback variables
     const GLchar* feedbackVaryings[] = {"vPosition", "vVelocity"};
     glTransformFeedbackVaryings(transformProgram->getProgramID(), 2, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
     
@@ -63,14 +65,14 @@ void Renderer::initBuffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[PROTO_VBO]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(prototypeData), prototypeData , GL_STATIC_DRAW);
     
-    container = new Container(particles, 2);
-    GLfloat* particleData = container->getPositionBuffer();
-    
+    // Creating buffer large enough to store MAX_BUFFER_SIZE particles.
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
-    glBufferData(GL_ARRAY_BUFFER, 7 * particles * sizeof(GL_FLOAT), particleData, GL_STATIC_DRAW);
-    
+    glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+//    glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, sizeof(particleData), particleData);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
-    glBufferData(GL_ARRAY_BUFFER, 7 * particles * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
+    glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
     
     glPointSize(3.0f);
 
@@ -93,19 +95,21 @@ void Renderer::setUniforms(){
     glm::mat4 modelMat = glm::mat4();
     modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
     
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+    glUniformMatrix4fv(PROJECTION_LOC, 1, GL_FALSE, glm::value_ptr(projectionMat));
+    glUniformMatrix4fv(VIEW_LOC, 1, GL_FALSE, glm::value_ptr(viewMat));
+    glUniformMatrix4fv(MODEL_LOC, 1, GL_FALSE, glm::value_ptr(modelMat));
 }
 
 void Renderer::update(){
+    frameCount++;
     
     transformProgram->use();
     
     glEnable(GL_RASTERIZER_DISCARD);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
-    glVertexAttribDivisor(POSITION_LOC, 0);
+    spawnParticles();
+
     glEnableVertexAttribArray(POSITION_LOC);
     glEnableVertexAttribArray(VELOCITY_LOC);
     
@@ -147,8 +151,9 @@ void Renderer::draw(){
     
     glDrawArraysInstanced(GL_POINTS, 0, 1,particles);
     
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
+    glUniformMatrix4fv(VIEW_LOC, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
     setUniforms();
+    glVertexAttribDivisor(POSITION_LOC, 0);
 }
 
 bool Renderer::render(){
@@ -164,11 +169,19 @@ bool Renderer::render(){
     return 0;
 }
 
+void Renderer::spawnParticles(){
+    if(frameCount % 10 == 0){
+        GLfloat* particleData = container->getNewParticleData(batchSize);
+        int addedParticles = container->getAddedParticles();
+        glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, addedParticles * 7 *sizeof(GL_FLOAT), particleData);
+        particles = container->getNumberParticles();
+    }
+}
+
 Renderer::~Renderer(){
     delete window;
     delete renderProgram;
     delete transformProgram;
-    delete container;
     
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(3, vbo);

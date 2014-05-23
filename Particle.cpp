@@ -92,3 +92,15 @@ bool Particle::collision(){
 
     return false;
 }
+
+void Particle::print(){
+    std::string signs[7] = {"x","y","z","w", "vX", "vY", "vZ"};
+    for (int i = 0; i < 3; i++) {
+        printf("%s: %f ",signs[i].c_str(),position[i]);
+    }
+    printf("%s: %f ",signs[3].c_str(), 1.0);
+    for (int i = 0; i < 3; i++) {
+        printf("%s: %f ",signs[3 + i].c_str(),velocity[i]);
+
+    }
+}
