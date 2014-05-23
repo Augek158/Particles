@@ -11,6 +11,7 @@
 		45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B9AB831929FBB4003ED531 /* Camera.cpp */; };
 		45C377DC192BC6EB0083BD6F /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C377DA192BC6EB0083BD6F /* Physics.cpp */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
+		604C68F4192F31E100F0C4FA /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604C68F2192F31E100F0C4FA /* Renderer.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
 		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
 		6091197E1916631500CEE3CB /* libglfw3.3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */; };
@@ -52,6 +53,8 @@
 		45C377DB192BC6EB0083BD6F /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		604C68F2192F31E100F0C4FA /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		604C68F3192F31E100F0C4FA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6084C4D5191655DE00817CC3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.0.dylib; path = ../../../../../../../../usr/local/Cellar/glfw3/3.0.4/lib/libglfw3.3.0.dylib; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				45C377DB192BC6EB0083BD6F /* Physics.h */,
 				45B9AB831929FBB4003ED531 /* Camera.cpp */,
 				45B9AB841929FBB4003ED531 /* Camera.h */,
+				604C68F2192F31E100F0C4FA /* Renderer.cpp */,
+				604C68F3192F31E100F0C4FA /* Renderer.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
 			);
 			path = HelloGL;
@@ -330,6 +335,7 @@
 				60EAF93F1929F9EB00F22F4D /* Particle.cpp in Sources */,
 				60EAF93B1929F65300F22F4D /* Container.cpp in Sources */,
 				60ED98EA19165204000E698E /* main.cpp in Sources */,
+				604C68F4192F31E100F0C4FA /* Renderer.cpp in Sources */,
 				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
 				45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */,
 				60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */,

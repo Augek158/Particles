@@ -18,7 +18,7 @@ Container::Container(int numParticles, int batchSize){
 }
 
 Container::~Container(){
-    
+
 }
 
 GLfloat* Container::getPositionBuffer(){
