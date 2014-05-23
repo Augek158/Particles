@@ -10,7 +10,7 @@
 #define __HelloGL__Container__
 
 // Maximum particles the system can handle.
-#define MAX_SIZE 1000000
+#define MAX_SIZE 10000000
 
 #include "Particle.h"
 #include <iostream>

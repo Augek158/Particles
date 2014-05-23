@@ -23,7 +23,10 @@ Container::~Container(){
 
 GLfloat* Container::getNewParticleData(int particles){
     
-    if(offset + particles > MAX_SIZE) return nullptr;
+    if(offset + particles > MAX_SIZE){
+        
+        return nullptr;
+    }
     
     GLfloat* subBuffer = new GLfloat[7 * particles];
     int index = 0;

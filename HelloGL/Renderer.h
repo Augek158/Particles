@@ -16,7 +16,7 @@
 #define PROJECTION_LOC 8
 
 // Buffer holds maximum 1 million particles.
-#define MAX_BUFFER_SIZE 1000000
+#define MAX_BUFFER_SIZE 10000000
 
 #include <iostream>
 #include <cmath>

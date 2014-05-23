@@ -170,11 +170,12 @@ bool Renderer::render(){
 }
 
 void Renderer::spawnParticles(){
-    if(frameCount % 10 == 0){
+    if(frameCount % 5 == 0){
         GLfloat* particleData = container->getNewParticleData(batchSize);
-        int addedParticles = container->getAddedParticles();
-        glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, addedParticles * 7 *sizeof(GL_FLOAT), particleData);
-        particles = container->getNumberParticles();
+        if(particleData != nullptr){
+            glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
+            particles = container->getNumberParticles();
+        }
     }
 }
 

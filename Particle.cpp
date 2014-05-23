@@ -21,7 +21,6 @@ Particle::Particle(){
     still =false;
     
     life = 0.0f;
-
     position = glm::vec3(-1.0 + 2 * (double)rand()/RAND_MAX,
                           0.0,
                          0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
