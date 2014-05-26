@@ -14,6 +14,7 @@ Renderer::Renderer(GLuint batchSize, GLuint interval):
     batchSize(batchSize), interval(interval){
         container = new Container();
         //container->populate();
+
 }
 
 void Renderer::initWindow(){
@@ -47,7 +48,20 @@ void Renderer::initShaderPrograms(){
     
     transformProgram->link();
     transformProgram->use();
+
+   // Initalizing TransformShaderEmpty
+    Shader* transformShaderEmpty = new Shader("MyTransformShaderEmpty.vs", GL_VERTEX_SHADER);
     
+    emptyTransformProgram = new ShaderProgram();
+    emptyTransformProgram->attachShader(transformShaderEmpty);
+    
+    // Initalizing the feedback variables
+    glTransformFeedbackVaryings(emptyTransformProgram->getProgramID(), 2, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
+    
+    emptyTransformProgram->link();
+    emptyTransformProgram->use();
+    
+    delete transformShaderEmpty;
     delete vertexShader;
     delete fragmentShader;
     delete transformShader;
@@ -107,8 +121,14 @@ void Renderer::update(){
     frameCount++;
     
     // Start transform feedback
-    transformProgram->use();
+    if(glfwGetTime() > 0.0){
 
+        transformProgram->use();
+    
+    }else{
+        emptyTransformProgram->use();
+    }
+    
     glEnable(GL_RASTERIZER_DISCARD);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
@@ -174,6 +194,7 @@ bool Renderer::render(){
     return 0;
 }
 
+
 /*
  This function spawns particles when the current frame divided by 'interval'
  leaves no remainder. It will stop spawn if the count of particles in the system
@@ -203,27 +224,29 @@ void Renderer::spawnParticles(GLfloat* particleData){
     }
 }
 
-void Renderer::initTextParticles(){
-   
+void Renderer::loadTextParticles(){
+    
+//    /* //Avkommentera om det inte funkar
+
+   if(false){
     //Init texture
     ILboolean result = ilLoadImage( "introLD.png" ) ;
 
+
     if( result )
     {
-        printf("the image loaded successfully\n");
+        printf("Image loaded successfully\n");
     }
     else
     {
         printf("The image failed to load\n" ) ;
         
         ILenum err = ilGetError() ;
-        printf( "the error %d\n", err );
-        printf( "string is %s\n", ilGetString( err ) );
+        printf( "Error: %d\n", err );
+        printf( "String is %s\n", ilGetString( err ) );
     }
-
-    int size = ilGetInteger( IL_IMAGE_SIZE_OF_DATA ) ;
     
-    printf("Data size:  %d\n", size );
+    int size = ilGetInteger( IL_IMAGE_SIZE_OF_DATA ) ;
     ILubyte * bytes = ilGetData() ;
     
     //Get Dimensions of Image
@@ -256,7 +279,7 @@ void Renderer::initTextParticles(){
             
             //Update container with a particle.
             container->insertParticleAt(counter, new Particle(glm::vec3(x, y, 0.0f)));
-
+            
             counter++;
 
         }
@@ -271,11 +294,12 @@ void Renderer::initTextParticles(){
         column++;
     
     } //for
+
+    }
     
-
+    //Här också
+//    */
 }
-
-
 
 Renderer::~Renderer(){
     delete window;

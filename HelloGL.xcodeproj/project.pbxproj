@@ -11,6 +11,7 @@
 		45918F12193370D100B18516 /* intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 45918F11193370D100B18516 /* intro.png */; };
 		45918F141933755500B18516 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 45918F131933755500B18516 /* test.png */; };
 		45918F181933802300B18516 /* introLD.png in Resources */ = {isa = PBXBuildFile; fileRef = 45918F171933802300B18516 /* introLD.png */; };
+		45918F1A19338B2F00B18516 /* MyTransformShaderEmpty.vs in Resources */ = {isa = PBXBuildFile; fileRef = 45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */; };
 		45B9AB821929F73B003ED531 /* baby.png in Resources */ = {isa = PBXBuildFile; fileRef = 45B9AB811929F73B003ED531 /* baby.png */; };
 		45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B9AB831929FBB4003ED531 /* Camera.cpp */; };
 		45C377DC192BC6EB0083BD6F /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C377DA192BC6EB0083BD6F /* Physics.cpp */; };
@@ -55,6 +56,7 @@
 		45918F11193370D100B18516 /* intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = intro.png; path = ../../intro.png; sourceTree = "<group>"; };
 		45918F131933755500B18516 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test.png; path = ../../test.png; sourceTree = "<group>"; };
 		45918F171933802300B18516 /* introLD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = introLD.png; path = ../../introLD.png; sourceTree = "<group>"; };
+		45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MyTransformShaderEmpty.vs; sourceTree = SOURCE_ROOT; };
 		45B9AB811929F73B003ED531 /* baby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baby.png; sourceTree = "<group>"; };
 		45B9AB831929FBB4003ED531 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		45B9AB841929FBB4003ED531 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				60DF67FE192D522C001AF593 /* MyTransformShader.vs */,
+				45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */,
 				6091198319166D7D00CEE3CB /* MyVertexShader.vs */,
 				6091198719166DA400CEE3CB /* MyFragmentShader.fs */,
 			);
@@ -324,6 +327,7 @@
 				60D35FA81927C68A0004988F /* car.png in Resources */,
 				45B9AB821929F73B003ED531 /* baby.png in Resources */,
 				45918F181933802300B18516 /* introLD.png in Resources */,
+				45918F1A19338B2F00B18516 /* MyTransformShaderEmpty.vs in Resources */,
 				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
 				45D59FCD19333D9300328EFD /* texture-text.png in Resources */,
 				45918F12193370D100B18516 /* intro.png in Resources */,

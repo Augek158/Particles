@@ -11,12 +11,12 @@
 
 int main(int argc, const char *argv[]){
     
-    Renderer renderer(200,3);
+    Renderer renderer(2000,3);
     renderer.initWindow();
     renderer.initShaderPrograms();
     renderer.initBuffers();
     renderer.initCamera();
-    renderer.initTextParticles(); //Text Rendering
+    renderer.loadTextParticles();
     renderer.render();
 
     

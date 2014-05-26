@@ -17,12 +17,13 @@
 #include <vector>
 
 
+
 class Container {
 private:
 
-    static const int MAX_PARTICLES = 10000000;
 
-    Particle container[MAX_PARTICLES];
+
+    Particle container[MAX_SIZE];
     int numParticles;
     int frameCount;
     int addedParticles;

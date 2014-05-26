@@ -7,13 +7,15 @@
 //
 
 #include "Container.h"
+#include <IL/il.h>
 
 /*
  Default constructor
  */
 Container::Container(){
-    
+
     offset = 0;
+    
 }
 
 void Container::populate(){
@@ -26,11 +28,6 @@ Container::~Container(){
     
 }
 
-void Container::insertParticleAt(int index, Particle *p){
-
-    container[index] = *p;
-
-}
 
 /*
  This function generates a subbuffer with the positions and velocities
@@ -83,4 +80,12 @@ int Container::getAddedParticles(){
 int Container::getNumberParticles(){
     return offset;
 }
+
+
+void Container::insertParticleAt(int index, Particle *p){
+
+    container[index] = *p;
+
+}
+
 

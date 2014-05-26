@@ -32,9 +32,7 @@
 #include "Physics.h"
 
 
-#include <libpng16/png.h>
-#include <libpng16/pngconf.h>
-#include <libpng16/pnglibconf.h>
+
 
 
 class Renderer {
@@ -53,6 +51,7 @@ private:
     Window* window;
     ShaderProgram* renderProgram;
     ShaderProgram* transformProgram;
+    ShaderProgram* emptyTransformProgram;
     Container* container;
     Camera cam;
     
@@ -77,8 +76,9 @@ public:
     void initShaderPrograms();
     void initBuffers();
     void initCamera();
-    void initTextParticles();
     bool render();
+    void loadTextParticles();
+
 };
 
 
