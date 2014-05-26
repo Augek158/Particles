@@ -11,22 +11,12 @@
 
 int main(int argc, const char *argv[]){
     
-    Renderer render(70,2);
-    render.initWindow();
-    render.initShaderPrograms();
-    render.initBuffers();
-    render.initCamera();
-    render.render();
-//    
-//    Container* cont = new Container();
-//    
-//    for(int i  = 0; i < 10000; i++){
-//        cont->getNewParticleData(20);
-//    }
-
-//    printf("\n\n");
-//    cont->spawnParticles(1);
-//    cont->print(cont->getPositionBuffer());
+    Renderer renderer(70,3);
+    renderer.initWindow();
+    renderer.initShaderPrograms();
+    renderer.initBuffers();
+    renderer.initCamera();
+    renderer.render();
     
     return 0;
 }

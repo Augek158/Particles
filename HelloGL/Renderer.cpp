@@ -74,7 +74,7 @@ void Renderer::initBuffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
     glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
     
-    glPointSize(1.0f);
+    glPointSize(2.5f);
 
 }
 
@@ -103,8 +103,9 @@ void Renderer::setUniforms(){
 void Renderer::update(){
     frameCount++;
     
+    // Start transform feedback
     transformProgram->use();
-    
+
     glEnable(GL_RASTERIZER_DISCARD);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
@@ -169,8 +170,14 @@ bool Renderer::render(){
     return 0;
 }
 
+/*
+ This function spawns particles when the current frame divided by 'interval'
+ leaves no remainder. It will stop spawn if the count of particles in the system
+ has reached the maximum capacity of the system.
+ */
 void Renderer::spawnParticles(){
     if(frameCount % interval == 0){
+        frameCount = 0;
         GLfloat* particleData = container->getNewParticleData(batchSize);
         if(particleData != nullptr){
             glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
