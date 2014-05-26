@@ -11,13 +11,12 @@
 
 int main(int argc, const char *argv[]){
     
-    Renderer renderer(200,3);
+    Renderer renderer(70,3);
     renderer.initWindow();
     renderer.initShaderPrograms();
     renderer.initBuffers();
     renderer.initCamera();
     renderer.render();
-
     
     return 0;
 }
