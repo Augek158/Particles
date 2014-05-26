@@ -17,8 +17,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const int SIZE = 100;
-
 enum{
     POSITION_LOC,
     TEXCOORD_LOC
@@ -52,27 +50,36 @@ int main(int argc, const char *argv[]){
     
     std::cout << glGetString(GL_VERSION) << std::endl;
     
-    GLuint myVAO;
-    glGenVertexArrays(1, &myVAO);
-    glBindVertexArray(myVAO);
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
     
     //init Buffers
-    GLuint myVBO;
-    glGenBuffers(1, &myVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, myVBO);
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+
     
     GLfloat bufferData[] = {
         +1.0, +1.0, -0.0, +1.0,
         -1.0, +1.0, -0.0, +1.0,
          1.0, -1.0, -0.0, +1.0,
-         1.0, -1.0, -0.0, +1.0,
-        -1.0, +1.0, -0.0, +1.0,
         -1.0, -1.0, -0.0, +1.0,
     };
     
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), bufferData, GL_STATIC_DRAW);
     glEnableVertexAttribArray(POSITION_LOC);
     glVertexAttribPointer(POSITION_LOC, 3, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
+    
+    GLuint ebo;
+    glGenBuffers(1, &ebo);
+
+    GLuint elementData[] = {
+        0, 1, 2, 2, 1, 3
+    };
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elementData), elementData, GL_STATIC_DRAW);
+    
     
     glBindVertexArray(0);
 
@@ -100,14 +107,16 @@ int main(int argc, const char *argv[]){
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(myVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindVertexArray(vao);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwPollEvents();
         window->swapBuffers();
     }
     
-    glDeleteBuffers(1, &myVBO);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
+    glDeleteVertexArrays(1, &vao);
     delete window;
     delete program;
     glfwTerminate();
