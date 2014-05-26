@@ -114,7 +114,6 @@ void Renderer::update(){
     glEnableVertexAttribArray(POSITION_LOC);
     glEnableVertexAttribArray(VELOCITY_LOC);
     
-    
     glVertexAttribPointer(POSITION_LOC, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
     glVertexAttribPointer(VELOCITY_LOC, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), (void*)( 4 * sizeof(GL_FLOAT)));
     
@@ -124,6 +123,7 @@ void Renderer::update(){
     glDrawArrays(GL_POINTS, 0, particles);
     glEndTransformFeedback();
     
+    // Swap the buffers
     std::swap(vbo[DATA_VBO],vbo[TRANSFORM_VBO]);
 
     
@@ -150,6 +150,7 @@ void Renderer::draw(){
     glVertexAttribPointer(POSITION_LOC, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(GL_FLOAT), 0);
     glVertexAttribDivisor(POSITION_LOC, 1);
     
+    // Draw all of the particles in a single call
     glDrawArraysInstanced(GL_POINTS, 0, 1,particles);
     
     glUniformMatrix4fv(VIEW_LOC, 1, GL_FALSE, glm::value_ptr(cam.getMatrix()));
