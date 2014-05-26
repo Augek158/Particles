@@ -13,12 +13,16 @@
 #include "ShaderProgram.h"
 #include "TextureUtils.h"
 #include "Window.h"
-#include "Container.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 const int SIZE = 100;
+
+enum{
+    POSITION_LOC,
+    TEXCOORD_LOC
+};
 
 int main(int argc, const char *argv[]){
     
@@ -48,57 +52,56 @@ int main(int argc, const char *argv[]){
     
     std::cout << glGetString(GL_VERSION) << std::endl;
     
+    GLuint myVAO;
+    glGenVertexArrays(1, &myVAO);
+    glBindVertexArray(myVAO);
+    
     //init Buffers
     GLuint myVBO;
     glGenBuffers(1, &myVBO);
     glBindBuffer(GL_ARRAY_BUFFER, myVBO);
     
     GLfloat bufferData[] = {
-        +0.0, +1.0, -0.0, +1.0,
+        +1.0, +1.0, -0.0, +1.0,
+        -1.0, +1.0, -0.0, +1.0,
+         1.0, -1.0, -0.0, +1.0,
+         1.0, -1.0, -0.0, +1.0,
+        -1.0, +1.0, -0.0, +1.0,
         -1.0, -1.0, -0.0, +1.0,
-        +1.0, -1.0, -0.0, +1.0,
     };
     
     glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), bufferData, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, NULL);
+    glEnableVertexAttribArray(POSITION_LOC);
+    glVertexAttribPointer(POSITION_LOC, 3, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
     
-    GLuint myVAO;
-    glGenVertexArrays(1, &myVAO);
-    glBindVertexArray(myVAO);
-    
-    GLint positionLoc = program->getAttribLoc("position");
-    
-    glEnableVertexAttribArray(positionLoc);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, myVBO);
-    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 4*sizeof(GLfloat),(GLvoid*) (0*sizeof(GLfloat)));
-    glBindBuffer(GL_ARRAY_BUFFER, NULL);
-    glBindVertexArray(NULL);
+    glBindVertexArray(0);
+
     
     GLint colorLoc = program->getUniformLoc("color");
-    
     GLint modelLoc = program->getUniformLoc("uMMatrix");
     GLint projectionLoc = program->getUniformLoc("uPMatrix");
     GLint viewLoc = program->getUniformLoc("uVMatrix");
     
     glUniform4f(colorLoc, 1.0, 1.0, 1.0, 1.0);
     
-    float aspect = (float)window->getFrameBufferHeight()/window->getFrameBufferHeight();
+    float aspect = (float)window->getFrameBufferWidth()/window->getFrameBufferHeight();
     glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
 
     glm::mat4 viewMat = glm::mat4();
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
     
-    Container* container = new Container(SIZE);
-
+    glm::mat4 modelMat = glm::mat4();
+    modelMat = glm::translate(modelMat, glm::vec3(0.0, 0.0, -2.0f));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMat));
+    
     //drawloop
     while(!window->shouldClose()){
         window->setWindowFPS();
         glViewport(0, 0, window->getFrameBufferWidth(), window->getFrameBufferHeight());
         glClear(GL_COLOR_BUFFER_BIT);
-        
-        container->draw(myVAO, modelLoc);
+        glBindVertexArray(myVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwPollEvents();
         window->swapBuffers();

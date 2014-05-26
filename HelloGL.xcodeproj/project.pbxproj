@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6001D0581929D3F800840C05 /* Container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6001D0561929D3F800840C05 /* Container.cpp */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
 		6084C4D6191655DE00817CC3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D5191655DE00817CC3 /* OpenAL.framework */; };
@@ -27,7 +26,6 @@
 		60ED98DD191651C2000E698E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60ED98DB191651C2000E698E /* InfoPlist.strings */; };
 		60ED98DF191651C2000E698E /* HelloGLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98DE191651C2000E698E /* HelloGLTests.m */; };
 		60ED98EA19165204000E698E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 60ED98E819165204000E698E /* main.cpp */; };
-		60FC6E83191CD6300040450B /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 60FC6E82191CD6300040450B /* texture.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +39,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6001D0561929D3F800840C05 /* Container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Container.cpp; path = ../Container.cpp; sourceTree = "<group>"; };
-		6001D0571929D3F800840C05 /* Container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Container.h; path = ../Container.h; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		6084C4D3191655D500817CC3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -71,7 +67,6 @@
 		60ED98DC191651C2000E698E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		60ED98DE191651C2000E698E /* HelloGLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloGLTests.m; sourceTree = "<group>"; };
 		60ED98E819165204000E698E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		60FC6E82191CD6300040450B /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = texture.jpg; path = ../../texture.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,8 +156,6 @@
 				601F5A8F1927933800CE3A86 /* Window.h */,
 				60D35F9F19279DD80004988F /* Shader.cpp */,
 				60D35FA019279DD80004988F /* Shader.h */,
-				6001D0561929D3F800840C05 /* Container.cpp */,
-				6001D0571929D3F800840C05 /* Container.h */,
 				60ED98BB191651C2000E698E /* Supporting Files */,
 			);
 			path = HelloGL;
@@ -201,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				60D35FA71927C68A0004988F /* car.png */,
-				60FC6E82191CD6300040450B /* texture.jpg */,
 			);
 			name = Textures;
 			sourceTree = "<group>";
@@ -284,7 +276,6 @@
 			files = (
 				60D35FA81927C68A0004988F /* car.png in Resources */,
 				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
-				60FC6E83191CD6300040450B /* texture.jpg in Resources */,
 				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
 				60ED98CD191651C2000E698E /* Images.xcassets in Resources */,
 				60ED98C5191651C2000E698E /* Credits.rtf in Resources */,
@@ -310,7 +301,6 @@
 				6091198B191670FB00CEE3CB /* ShaderUtils.cpp in Sources */,
 				60ED98EA19165204000E698E /* main.cpp in Sources */,
 				60B66F20191CCC1000F582C6 /* TextureUtils.cpp in Sources */,
-				6001D0581929D3F800840C05 /* Container.cpp in Sources */,
 				60D35FA41927A0330004988F /* ShaderProgram.cpp in Sources */,
 				601F5A901927933800CE3A86 /* Window.cpp in Sources */,
 				60D35FA119279DD80004988F /* Shader.cpp in Sources */,

@@ -1,7 +1,7 @@
-#version 150 core
+#version 330 core
 
-in vec4 position;
-in vec2 texcoord;
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec2 texcoord;
 
 uniform mat4 uPMatrix;
 uniform mat4 uVMatrix;
