@@ -183,7 +183,7 @@ void Renderer::spawnParticles(){
         if(particleData != nullptr){
             glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
             particles = container->getNumberParticles();
-//            printf("particels: %d\n",particles);
+            printf("particels: %d\n",particles);
         }
     }
 }

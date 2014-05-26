@@ -24,14 +24,15 @@ Particle::Particle(){
     //Give a random position in each direction to the particle,
     //within the boundings of the vertex shader.
     position = glm::vec3(-10.0f + ((double) 20 * rand() / (RAND_MAX)),
-                          -10.0f + ((double) 20 * rand() / (RAND_MAX)),
+                         19.0f,
+                         // -10.0f + ((double) 20 * rand() / (RAND_MAX)),
                          -10.0f + ((double) 20 * rand() / (RAND_MAX)));
 
     //Give a random speed in each direction to the particle
     float speedX = -2 + 4* ((double) rand() / (RAND_MAX));
     float speedY = -2 + 4* ((double) rand() / (RAND_MAX));
     float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
-    velocity = glm::vec3(0.2*speedX, 0.2*speedY, 0.2*speedZ);
+    velocity = glm::vec3(0.01*speedX, 0.5*speedY, 0.01*speedZ);
 }
 
 glm::vec3 Particle::getPosition(){
