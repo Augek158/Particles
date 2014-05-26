@@ -20,15 +20,19 @@ Particle::Particle(){
     still =false;
     mass = 1.0;
     life = 0.0f;
+    
+    //Give a random position in each direction to the particle,
+    //within the boundings of the vertex shader.
+    position = glm::vec3(-10.0f + ((double) 20 * rand() / (RAND_MAX)),
+                          -10.0f + ((double) 20 * rand() / (RAND_MAX)),
+                         -10.0f + ((double) 20 * rand() / (RAND_MAX)));
 
-    position = glm::vec3(-1.0 + 2 * (double)rand()/RAND_MAX,
-                          -1.0 + 2 * (double)rand()/RAND_MAX,
-                         0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
-    velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+    //Give a random speed in each direction to the particle
+    float speedX = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedY = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
+    velocity = glm::vec3(0.2*speedX, 0.2*speedY, 0.2*speedZ);
 
-
-    float speed = -2 + 4* ((double) rand() / (RAND_MAX));
-//    velocity = glm::vec3( speed, speed, 0);
 
 }
 
@@ -40,92 +44,12 @@ glm::vec3 Particle::getVelocity(){
     return velocity;
 }
 
-void Particle::update(){
-    
-    life += getDelta();
-
-    float minEnergyValue = 0.1;
-
-    if(calculateEnergy() > minEnergyValue){
-        velocity += glm::vec3(0.0f, 1.0f * gravity * getDelta() , 0.0f);
-        checkBounds();
-        position += velocity;
-    }else{
-        velocity = glm::vec3(0.0, 0.0, 0.0);
-    }
-}
-
 float Particle::getLife(){
     return life;
 }
 
 double Particle::getDelta(){
     return 1.0f / 60.0f;
-}
-
-void Particle::checkBounds(){
-
-    
-    if(position.y < BoundingSouth){
-  
-        glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.y = BoundingSouth;
-        
-    }
-    
-    if(position.y > BoundingNorth){
-  
-        glm::vec3 normal = glm::vec3(0.0f, -1.0f, 0.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.y = BoundingNorth;
-    }
-    
-    if(position.x < BoundingWest){
-        glm::vec3 normal = glm::vec3(1.0f, 0.0f, 0.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.x = BoundingWest;
-    }
-    
-    if(position.x > BoundingEast){
-        glm::vec3 normal = glm::vec3(-1.0f, 0.0f, 0.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.x = BoundingEast;
-    }
-    
-    if(position.z < BoundingFarthest){
-        glm::vec3 normal = glm::vec3(0.0f, 0.0f, 1.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.z = BoundingFarthest;
-    }
-    
-    if(position.z > BoundingNearest){
-        glm::vec3 normal = glm::vec3(0.0f, 0.0f, -1.0f);
-        glm::vec3 newvelocity = -2.0f * (velocity * normal) * normal + velocity;
-        
-        velocity = (COR * newvelocity);
-        position.z = BoundingNearest;
-    }
-    
-}
-
-float Particle::calculateEnergy(){
-    
-    float v = sqrt( velocity.x * velocity.x + velocity.y * velocity.y );
-    float kineticEnergy = mass * v * v * 0.5;
-    float potentialEnergy = mass * Physics::gravity * sqrt((position.y - BoundingSouth) * (position.y - BoundingSouth) );
-
-    return (kineticEnergy + potentialEnergy);
 }
 
 bool Particle::collision(){

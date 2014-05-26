@@ -10,7 +10,7 @@
 
 int main(int argc, const char *argv[]){
     
-    Renderer render(10000);
+    Renderer render(100000);
     render.initWindow();
     render.initShaderPrograms();
     render.initBuffers();

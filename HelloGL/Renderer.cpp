@@ -79,8 +79,8 @@ void Renderer::initBuffers(){
 void Renderer::initCamera(){
     
     cam = Camera();
-    cam.setPosition(glm::vec3(0.0,0.0, 20.0));
-    cam.setRotation(glm::vec3(0, 0, 0));
+    cam.setPosition(glm::vec3(0.0,20.0, 40.0));
+    cam.setRotation(glm::vec3(-40, 0, 0));
     
 }
 
@@ -89,9 +89,9 @@ void Renderer::setUniforms(){
     float aspect = (float)window->getFrameBufferWidth()/window->getFrameBufferHeight();
     
     glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
-    glm::mat4 viewMat = glm::mat4();
+    glm::mat4 viewMat = cam.getMatrix();
     glm::mat4 modelMat = glm::mat4();
-    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
+    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, 0.0f));
     
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMat));
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMat));
