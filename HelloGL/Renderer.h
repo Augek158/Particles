@@ -31,6 +31,12 @@
 #include "Camera.h"
 #include "Physics.h"
 
+
+#include <libpng16/png.h>
+#include <libpng16/pngconf.h>
+#include <libpng16/pnglibconf.h>
+
+
 class Renderer {
 enum{
     PROTO_VBO,
@@ -61,6 +67,9 @@ private:
     void draw();
     void setUniforms();
     void spawnParticles();
+    void spawnParticles(GLfloat* particleData);
+    
+
 public:
     Renderer(GLuint batchSize, GLuint interval);
     ~Renderer();
@@ -68,6 +77,7 @@ public:
     void initShaderPrograms();
     void initBuffers();
     void initCamera();
+    void initTextParticles();
     bool render();
 };
 

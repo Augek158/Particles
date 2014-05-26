@@ -11,7 +11,7 @@ const float gravity = -9.82/10;
 const float gravityMagnitude = sqrt( gravity * gravity);
 const float mass = 1.0;
 const float COR = 0.7;
-const float minEnergyValue = 0.05;
+
 
 const float BoundingSouth = -20.0;
 const float BoundingNorth = 20.0;
@@ -93,11 +93,17 @@ bool collisionWithBounds(){
 
 }
 
+bool haveEnergy(){
+    float minEnergyValue = 0.05;
+//    return false;
+    return (calculateEnergy() > minEnergyValue);
+
+}
 
 void main(){
 
     //If the particle have energy, check for collisions.
-    if(calculateEnergy() > minEnergyValue){
+    if(haveEnergy()){
     
         //If no collision calculate particles new position and velocity.
         if(!collisionWithBounds()){

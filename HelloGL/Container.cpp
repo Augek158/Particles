@@ -12,15 +12,24 @@
  Default constructor
  */
 Container::Container(){
-        
+    
+    offset = 0;
+}
+
+void Container::populate(){
     for(int i = 0; i < MAX_SIZE; i++){
         container[i] = *new Particle();
     }
-    offset = 0;
 }
 
 Container::~Container(){
     
+}
+
+void Container::insertParticleAt(int index, Particle *p){
+
+    container[index] = *p;
+
 }
 
 /*

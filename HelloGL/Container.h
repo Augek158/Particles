@@ -32,11 +32,13 @@ private:
 public:
     Container();
     virtual ~Container();
+    void populate();
     GLfloat* getNewParticleData(int particles);
     void spawnParticles(int particles);
     void print();
     int getAddedParticles();
     int getNumberParticles();
+    void insertParticleAt(int index, Particle *p);
 };
 
 #endif /* defined(__HelloGL__ParticleContainer__) */

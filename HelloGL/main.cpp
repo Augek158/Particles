@@ -16,6 +16,7 @@ int main(int argc, const char *argv[]){
     renderer.initShaderPrograms();
     renderer.initBuffers();
     renderer.initCamera();
+    renderer.initTextParticles(); //Text Rendering
     renderer.render();
 
     
