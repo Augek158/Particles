@@ -16,15 +16,22 @@
 
 Particle::Particle(){
 
-    weight = 1000.0f;
     gravity = -9.82 / 10;
     still =false;
-    
+    mass = 1.0;
     life = 0.0f;
-    position = glm::vec3(-0.7 + 0.5 * (double)rand()/RAND_MAX,
-                          0.7,
-                         0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
-    velocity = glm::vec3(-0.02 + 0.04 * (double)rand()/RAND_MAX, -0.5 - 0.2 *(double)rand()/RAND_MAX, 0.0f);
+    
+    //Give a random position in each direction to the particle,
+    //within the boundings of the vertex shader.
+    position = glm::vec3(-10.0f + ((double) 20 * rand() / (RAND_MAX)),
+                          -10.0f + ((double) 20 * rand() / (RAND_MAX)),
+                         -10.0f + ((double) 20 * rand() / (RAND_MAX)));
+
+    //Give a random speed in each direction to the particle
+    float speedX = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedY = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
+    velocity = glm::vec3(0.2*speedX, 0.2*speedY, 0.2*speedZ);
 }
 
 glm::vec3 Particle::getPosition(){
@@ -35,21 +42,6 @@ glm::vec3 Particle::getVelocity(){
     return velocity;
 }
 
-void Particle::update(){
-    
-    life += getDelta();
-
-    float minEnergyValue = 0.1;
-
-    if(calculateEnergy() > minEnergyValue){
-        velocity += glm::vec3(0.0f, 1.0f * gravity * getDelta() , 0.0f);
-        checkBounds();
-        position += velocity;
-    }else{
-        velocity = glm::vec3(0.0, 0.0, 0.0);
-    }
-}
-
 float Particle::getLife(){
     return life;
 }
@@ -58,31 +50,11 @@ double Particle::getDelta(){
     return 1.0f / 60.0f;
 }
 
-void Particle::checkBounds(){
-    
-    if(position.y < Physics::groundLevel){
-        velocity *= -Physics::COR;
-        position.y = Physics::groundLevel;
-    }
-    
-}
-
-float Particle::calculateEnergy(){
-    glm::vec3 energy = glm::vec3();
-
-    
-    float absY = sqrt((position.y - Physics::groundLevel) * (position.y - Physics::groundLevel) );
-    
-    energy.y = absY + velocity.y * velocity.y;
-    
-    return energy.y;
-}
-
 bool Particle::collision(){
     
     GLfloat a = velocity.y * velocity.y;
-    GLfloat b = 2*velocity.y* (position.y - Physics::groundLevel);
-    GLfloat c = (position.y - Physics::groundLevel) * (position.y - Physics::groundLevel);
+    GLfloat b = 2*velocity.y* (position.y - BoundingSouth);
+    GLfloat c = (position.y - BoundingSouth) * (position.y - BoundingSouth);
     
     GLfloat distance = 0; //?
 

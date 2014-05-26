@@ -17,6 +17,7 @@ int main(int argc, const char *argv[]){
     renderer.initBuffers();
     renderer.initCamera();
     renderer.render();
+
     
     return 0;
 }
