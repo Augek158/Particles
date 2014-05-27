@@ -77,7 +77,8 @@ public:
     void initBuffers();
     void initCamera();
     bool render();
-    void loadTextParticles();
+    void initTextParticles();
+
 
 };
 

@@ -8,15 +8,18 @@
 
 #include "Renderer.h"
 #include "Container.h"
+#include <IL/il.h>
 
 int main(int argc, const char *argv[]){
+
+    ilInit();
     
     Renderer renderer(2000,3);
     renderer.initWindow();
     renderer.initShaderPrograms();
     renderer.initBuffers();
     renderer.initCamera();
-    renderer.loadTextParticles();
+    renderer.initTextParticles();
     renderer.render();
 
     

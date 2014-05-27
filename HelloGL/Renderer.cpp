@@ -14,7 +14,7 @@ Renderer::Renderer(GLuint batchSize, GLuint interval):
     batchSize(batchSize), interval(interval){
         container = new Container();
         //container->populate();
-
+       
 }
 
 void Renderer::initWindow(){
@@ -115,6 +115,10 @@ void Renderer::setUniforms(){
     glUniformMatrix4fv(PROJECTION_LOC, 1, GL_FALSE, glm::value_ptr(projectionMat));
     glUniformMatrix4fv(VIEW_LOC, 1, GL_FALSE, glm::value_ptr(viewMat));
     glUniformMatrix4fv(MODEL_LOC, 1, GL_FALSE, glm::value_ptr(modelMat));
+}
+
+void Renderer::initTextParticles(){
+    container->loadTextParticles();
 }
 
 void Renderer::update(){
@@ -224,82 +228,7 @@ void Renderer::spawnParticles(GLfloat* particleData){
     }
 }
 
-void Renderer::loadTextParticles(){
-    
-//    /* //Avkommentera om det inte funkar
 
-   if(false){
-    //Init texture
-    ILboolean result = ilLoadImage( "introLD.png" ) ;
-
-
-    if( result )
-    {
-        printf("Image loaded successfully\n");
-    }
-    else
-    {
-        printf("The image failed to load\n" ) ;
-        
-        ILenum err = ilGetError() ;
-        printf( "Error: %d\n", err );
-        printf( "String is %s\n", ilGetString( err ) );
-    }
-    
-    int size = ilGetInteger( IL_IMAGE_SIZE_OF_DATA ) ;
-    ILubyte * bytes = ilGetData() ;
-    
-    //Get Dimensions of Image
-    ILuint imgWidth, imgHeight;
-    imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
-    imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
-
-
-    float x,y;
-    float BoundingSize = 20.0f;
-    
-    float scale = BoundingSize/ imgWidth;
-    
-    int column=0,row=0, counter=0;
-    
-
-    for( int i = 0 ; i < size; i+=4 )
-    {
-        
-        int r = bytes[i];
-//        int g = bytes[i+1];
-//        int b = bytes[i+2];
-//        int a = bytes[i+3];
-        
-        //If pixel is NOT black place a particle.
-        if(r != 0){
-            //Scale and uniform XY
-            x = scale * (column - ((float)imgWidth / 2.0));
-            y = scale * (row - ((float)imgHeight / 2.0));
-            
-            //Update container with a particle.
-            container->insertParticleAt(counter, new Particle(glm::vec3(x, y, 0.0f)));
-            
-            counter++;
-
-        }
-    
-        //New row compensation
-        if(column == imgWidth-1){
-        
-            row++;
-            column=-1;
-        }
-        //New column
-        column++;
-    
-    } //for
-
-    }
-    
-    //Här också
-//    */
-}
 
 Renderer::~Renderer(){
     delete window;

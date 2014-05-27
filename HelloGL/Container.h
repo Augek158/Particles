@@ -40,6 +40,7 @@ public:
     int getAddedParticles();
     int getNumberParticles();
     void insertParticleAt(int index, Particle *p);
+    void loadTextParticles();
 };
 
 #endif /* defined(__HelloGL__ParticleContainer__) */
