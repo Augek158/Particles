@@ -21,10 +21,10 @@ Particle::Particle(){
     still =false;
     
     life = 0.0f;
-    position = glm::vec3(-0.7 + 0.5 * (double)rand()/RAND_MAX,
-                          0.7,
+    position = glm::vec3(-1.0 + 2.0 * (double)rand()/RAND_MAX,
+                         -3.5,
                          0.0);//+ ((double) 8 * rand() / (RAND_MAX)));
-    velocity = glm::vec3(-0.02 + 0.04 * (double)rand()/RAND_MAX, -0.5 - 0.2 *(double)rand()/RAND_MAX, 0.0f);
+    velocity = glm::vec3(-0.02 + 0.04 * (double)rand()/RAND_MAX, 0.5 + 1.2 *(double)rand()/RAND_MAX, 0.0f);
 }
 
 glm::vec3 Particle::getPosition(){

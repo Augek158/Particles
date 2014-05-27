@@ -87,13 +87,12 @@ void Renderer::initCamera(){
 }
 
 void Renderer::setUniforms(){
-    
     float aspect = (float)window->getFrameBufferWidth()/window->getFrameBufferHeight();
     
     glm::mat4 projectionMat = glm::perspective(60.0f, aspect, 0.01f, 100.0f);
     glm::mat4 viewMat = glm::mat4();
     glm::mat4 modelMat = glm::mat4();
-    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -2.0f));
+    modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, -7.0f));
     
     glUniformMatrix4fv(PROJECTION_LOC, 1, GL_FALSE, glm::value_ptr(projectionMat));
     glUniformMatrix4fv(VIEW_LOC, 1, GL_FALSE, glm::value_ptr(viewMat));
@@ -105,6 +104,7 @@ void Renderer::update(){
     
     // Start transform feedback
     transformProgram->use();
+    glUniform1f(TIME_LOC, glfwGetTime());
 
     glEnable(GL_RASTERIZER_DISCARD);
     
@@ -125,7 +125,6 @@ void Renderer::update(){
     glEndTransformFeedback();
     
     std::swap(vbo[DATA_VBO],vbo[TRANSFORM_VBO]);
-
     
 }
 
@@ -164,7 +163,7 @@ bool Renderer::render(){
         window->setWindowFPS();
         update();
         draw();
-        glfwPollEvents();
+       // glfwPollEvents();
         window->swapBuffers();
     }
     return 0;

@@ -12,6 +12,7 @@
 #define GLFW_INCLUDE_GLCOREARB
 
 #define VIEW_LOC 0
+#define TIME_LOC 0
 #define MODEL_LOC 4
 #define PROJECTION_LOC 8
 
