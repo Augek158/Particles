@@ -11,7 +11,8 @@ out vec3 vVelocity;
 
 const float dt = 1.0/60.0;
 vec3 boundary = vec3(0.0, 1.0, 0.0);
-float radius = 0.5;
+vec3 buoyancy = vec3(0.0, 0.5/30, 0.0);
+float radius = 0.6;
 
 
 
@@ -320,43 +321,59 @@ float pnoise(vec4 P, vec4 rep)
 }
 
 float ramp(float r){
-    
     if(r >= radius){
         return 1;
     }
-
-//     (15/8)*r - (10/8)*r*r*r + (3/5)*r*r*r*r*r 
-    return -(5*(15/8)*r - (10/8)*r*r*r + 10*(3/5)*r*r*r*r*r);
+    float dir = 0;
+    (aPosition.x - boundary.x > 0.0) ? dir = -1 : dir = 1;
+    return dir * 5e1 * ((15/8)*r - (10/8)*r*r*r + (3/5)*r*r*r*r*r);
+   
 }
 
 vec3 curl(vec3 position){
     const float e = 1e-4;
     vec3 dx = vec3(e, 0, 0);
     vec3 dy = vec3(0, e, 0);
-//    vec3 dz = vec3(0, 0, e);
-    float scale = 5e-3;
-    
+
+    float scale = 3e-3;
+
     float dfdx = (1/e)*(scale * cnoise(vec4(position,uTime + 123)) - scale * cnoise(vec4(position+dx,uTime + 123)));
     float dfdy = (1/e)*(scale * cnoise(vec4(position,uTime)) - scale * cnoise(vec4(position+dy,uTime)));
     
-    return vec3(dfdy, -dfdx, 0.0);
+    return vec3(dfdy, -dfdx + buoyancy.y, 0.0);
+}
+
+vec3 compute_gradient(vec3 position){
+    const float e = 0.01;
+    vec3 dx = vec3(e, 0, 0);
+    vec3 dy = vec3(0, e, 0);
+    vec3 dz = vec3(0, 0, e);
+    
+    float dfdx = (1/e) * (length((position.x + dx) - boundary.x) - length(position.x - boundary.x));
+    float dfdy = (1/e) * (length((position.y + dy) - boundary.y) - length(position.y - boundary.y));
+    float dfdz = (1/e) * (length((position.z + dz) - boundary.z) - length(position.z - boundary.z));
+    
+    return normalize(vec3(dfdx, dfdy, dfdz));
+}
+
+vec3 blend(vec3 potential, vec3 distance_gradient, float alpha){
+    float dp = dot(potential,distance_gradient);
+    return alpha * potential + (1 - alpha) * dp * distance_gradient;
 }
 
 void main(){
     
-//    vec4 seed = vec4(aPosition.xyz, uTime);
     vec3 noisePotential = vec3(0.0, 0.0, 0.0);
-    vec3 rampVec = vec3(0.0, 0.0, 0.0);
+    float alpha = ramp(length(aPosition.xyz - boundary));
     if(aPosition.y < 4.0){
-        noisePotential = curl(aPosition.xyz);
-        float rdfdx = ramp(length(aPosition.xyz - boundary));
-        float rdfdy = ramp(length(aPosition.xyz - boundary));
-        rampVec = vec3(rdfdx, rdfdy, 0.0);
+        vec3 potential = curl(aPosition.xyz);
+        vec3 distance_gradient = compute_gradient(aPosition.xyz);
+        noisePotential = blend(potential, distance_gradient, alpha);
+        
     }
-    
    
     
-    vec4 totalVelocity = vec4( rampVec*(aVelocity/60 + noisePotential), 0.0);
+    vec4 totalVelocity = vec4(noisePotential, 0.0);
     
     vPosition = aPosition + totalVelocity;
     vVelocity = aVelocity;
