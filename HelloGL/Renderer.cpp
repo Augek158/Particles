@@ -74,7 +74,7 @@ void Renderer::initBuffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
     glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
     
-    glPointSize(2.5f);
+    glPointSize(8.5f);
 
 }
 

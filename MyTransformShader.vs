@@ -346,17 +346,17 @@ void main(){
     
 //    vec4 seed = vec4(aPosition.xyz, uTime);
     vec3 noisePotential = vec3(0.0, 0.0, 0.0);
-    vec3 rampVec = vec3(0.0, 0.0, 0.0);
+//    vec3 rampVec = vec3(0.0, 0.0, 0.0);
     if(aPosition.y < 4.0){
         noisePotential = curl(aPosition.xyz);
-        float rdfdx = ramp(length(aPosition.xyz - boundary));
-        float rdfdy = ramp(length(aPosition.xyz - boundary));
-        rampVec = vec3(rdfdx, rdfdy, 0.0);
+//        float rdfdx = ramp(length(aPosition.xyz - boundary));
+//        float rdfdy = ramp(length(aPosition.xyz - boundary));
+//        rampVec = vec3(rdfdx, rdfdy, 0.0);
     }
     
    
     
-    vec4 totalVelocity = vec4( rampVec*(aVelocity/60 + noisePotential), 0.0);
+    vec4 totalVelocity = vec4( /*rampVec**/(aVelocity/60 + noisePotential), 0.0);
     
     vPosition = aPosition + totalVelocity;
     vVelocity = aVelocity;

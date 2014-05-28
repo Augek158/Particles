@@ -11,7 +11,7 @@
 
 int main(int argc, const char *argv[]){
     
-    Renderer renderer(200,1);
+    Renderer renderer(75,1);
     renderer.initWindow();
     renderer.initShaderPrograms();
     renderer.initBuffers();
