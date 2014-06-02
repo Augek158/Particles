@@ -16,8 +16,7 @@
 
 Particle::Particle(){
 
-    gravity = -9.82 / 10;
-    still =false;
+
     mass = 1.0;
     life = 0.0f;
     
@@ -34,6 +33,15 @@ Particle::Particle(){
     float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
     velocity = glm::vec3(0.01*speedX, 0.5*speedY, 0.01*speedZ);
 }
+
+Particle::Particle(glm::vec3 thePosition){
+    mass = 1.0;
+    life = 0.0f;
+    
+    position = thePosition;
+    velocity = glm::vec3(0.0, 0.5, 0.0);
+}
+
 
 glm::vec3 Particle::getPosition(){
     return position;

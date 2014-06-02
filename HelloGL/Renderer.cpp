@@ -8,9 +8,13 @@
 
 #include "Renderer.h"
 
+
+
 Renderer::Renderer(GLuint batchSize, GLuint interval):
     batchSize(batchSize), interval(interval){
         container = new Container();
+        //container->populate();
+       
 }
 
 void Renderer::initWindow(){
@@ -44,7 +48,20 @@ void Renderer::initShaderPrograms(){
     
     transformProgram->link();
     transformProgram->use();
+
+   // Initalizing TransformShaderEmpty
+    Shader* transformShaderEmpty = new Shader("MyTransformShaderEmpty.vs", GL_VERTEX_SHADER);
     
+    emptyTransformProgram = new ShaderProgram();
+    emptyTransformProgram->attachShader(transformShaderEmpty);
+    
+    // Initalizing the feedback variables
+    glTransformFeedbackVaryings(emptyTransformProgram->getProgramID(), 2, feedbackVaryings, GL_INTERLEAVED_ATTRIBS);
+    
+    emptyTransformProgram->link();
+    emptyTransformProgram->use();
+    
+    delete transformShaderEmpty;
     delete vertexShader;
     delete fragmentShader;
     delete transformShader;
@@ -100,12 +117,22 @@ void Renderer::setUniforms(){
     glUniformMatrix4fv(MODEL_LOC, 1, GL_FALSE, glm::value_ptr(modelMat));
 }
 
+void Renderer::initTextParticles(){
+    container->loadTextParticles();
+}
+
 void Renderer::update(){
     frameCount++;
     
     // Start transform feedback
-    transformProgram->use();
+    if(glfwGetTime() > 0.0){
 
+        transformProgram->use();
+    
+    }else{
+        emptyTransformProgram->use();
+    }
+    
     glEnable(GL_RASTERIZER_DISCARD);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
@@ -171,6 +198,7 @@ bool Renderer::render(){
     return 0;
 }
 
+
 /*
  This function spawns particles when the current frame divided by 'interval'
  leaves no remainder. It will stop spawn if the count of particles in the system
@@ -183,10 +211,24 @@ void Renderer::spawnParticles(){
         if(particleData != nullptr){
             glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
             particles = container->getNumberParticles();
-            printf("particels: %d\n",particles);
+            //printf("particels: %d\n",particles);
         }
     }
 }
+
+void Renderer::spawnParticles(GLfloat* particleData){
+    if(frameCount % interval == 0){
+        frameCount = 0;
+        GLfloat* particleData = container->getNewParticleData(batchSize);
+        if(particleData != nullptr){
+            glBufferSubData(GL_ARRAY_BUFFER, 7 * sizeof(GL_FLOAT) * particles, container->getAddedParticles() * 7 *sizeof(GL_FLOAT), particleData);
+            particles = container->getNumberParticles();
+            //printf("particels: %d\n",particles);
+        }
+    }
+}
+
+
 
 Renderer::~Renderer(){
     delete window;

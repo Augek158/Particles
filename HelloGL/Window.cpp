@@ -16,7 +16,7 @@ Window::Window(GLint width, GLint height, std::string title){
     
     if(instanceCount == 0){
         
-        ilInit();
+
         ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
         ilEnable(IL_ORIGIN_SET);
         

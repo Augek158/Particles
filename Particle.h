@@ -22,21 +22,18 @@ private:
     glm::vec3 position;
     glm::vec3 velocity;
     float life;
-    float gravity;
     float mass;
-    bool still;
-    void checkBounds();
-    float calculateEnergy();
     bool collision();
     
     
 public:
     Particle();
+    Particle(glm::vec3 thePosition);
     glm::vec3 getPosition();
     glm::vec3 getVelocity();
     double getDelta();
     float getLife();
-    void update();
+
     void print();
 };
 

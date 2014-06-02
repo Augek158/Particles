@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45918F1019335E0000B18516 /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45918F0C193349B900B18516 /* libpng16.16.dylib */; };
+		45918F1A19338B2F00B18516 /* MyTransformShaderEmpty.vs in Resources */ = {isa = PBXBuildFile; fileRef = 45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */; };
 		45B9AB821929F73B003ED531 /* baby.png in Resources */ = {isa = PBXBuildFile; fileRef = 45B9AB811929F73B003ED531 /* baby.png */; };
 		45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B9AB831929FBB4003ED531 /* Camera.cpp */; };
 		45C377DC192BC6EB0083BD6F /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C377DA192BC6EB0083BD6F /* Physics.cpp */; };
+		45D59FCD19333D9300328EFD /* texture-text.png in Resources */ = {isa = PBXBuildFile; fileRef = 45D59FCC19333D9300328EFD /* texture-text.png */; };
 		601F5A901927933800CE3A86 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 601F5A8E1927933800CE3A86 /* Window.cpp */; };
 		604C68F4192F31E100F0C4FA /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 604C68F2192F31E100F0C4FA /* Renderer.cpp */; };
 		6084C4D4191655D500817CC3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6084C4D3191655D500817CC3 /* OpenGL.framework */; };
@@ -46,11 +49,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45918F0C193349B900B18516 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../../usr/local/Cellar/libpng/1.6.10/lib/libpng16.16.dylib; sourceTree = "<group>"; };
+		45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MyTransformShaderEmpty.vs; sourceTree = SOURCE_ROOT; };
 		45B9AB811929F73B003ED531 /* baby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baby.png; sourceTree = "<group>"; };
 		45B9AB831929FBB4003ED531 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		45B9AB841929FBB4003ED531 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		45C377DA192BC6EB0083BD6F /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Physics.cpp; sourceTree = "<group>"; };
 		45C377DB192BC6EB0083BD6F /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
+		45D59FCC19333D9300328EFD /* texture-text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "texture-text.png"; sourceTree = "<group>"; };
 		601F5A8E1927933800CE3A86 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		601F5A8F1927933800CE3A86 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		604C68F2192F31E100F0C4FA /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
@@ -93,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45918F1019335E0000B18516 /* libpng16.16.dylib in Frameworks */,
 				60D35FAA1927C9420004988F /* libIL.1.dylib in Frameworks */,
 				60911980191664D100CEE3CB /* libassimp.3.0.255.dylib in Frameworks */,
 				6091197E1916631500CEE3CB /* libglfw3.3.0.dylib in Frameworks */,
@@ -124,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				60DF67FE192D522C001AF593 /* MyTransformShader.vs */,
+				45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */,
 				6091198319166D7D00CEE3CB /* MyVertexShader.vs */,
 				6091198719166DA400CEE3CB /* MyFragmentShader.fs */,
 			);
@@ -152,6 +160,7 @@
 		60ED98B3191651C2000E698E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45918F0C193349B900B18516 /* libpng16.16.dylib */,
 				60D35FA91927C9420004988F /* libIL.1.dylib */,
 				6091197F191664D100CEE3CB /* libassimp.3.0.255.dylib */,
 				6091197D1916631500CEE3CB /* libglfw3.3.0.dylib */,
@@ -223,6 +232,7 @@
 		60FC6E81191CD47E0040450B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				45D59FCC19333D9300328EFD /* texture-text.png */,
 				60D35FA71927C68A0004988F /* car.png */,
 				45B9AB811929F73B003ED531 /* baby.png */,
 			);
@@ -307,7 +317,9 @@
 			files = (
 				60D35FA81927C68A0004988F /* car.png in Resources */,
 				45B9AB821929F73B003ED531 /* baby.png in Resources */,
+				45918F1A19338B2F00B18516 /* MyTransformShaderEmpty.vs in Resources */,
 				60ED98BF191651C2000E698E /* InfoPlist.strings in Resources */,
+				45D59FCD19333D9300328EFD /* texture-text.png in Resources */,
 				6091198819166DA400CEE3CB /* MyFragmentShader.fs in Resources */,
 				60ED98CD191651C2000E698E /* Images.xcassets in Resources */,
 				60ED98C5191651C2000E698E /* Credits.rtf in Resources */,
@@ -472,6 +484,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/Cellar/glfw3/3.0.4/include,
 					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/opt/libpng/include,
 					/usr/local/Cellar/glm/0.9.5.3/include,
 				);
 				INFOPLIST_FILE = "HelloGL/HelloGL-Info.plist";
@@ -480,6 +493,7 @@
 					/usr/local/Cellar/devil/1.7.8_1/lib,
 					/usr/local/Cellar/glfw3/3.0.4/lib,
 					/usr/local/Cellar/assimp/3.0.1270/lib,
+					/usr/local/Cellar/libpng/1.6.10/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -497,6 +511,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/Cellar/glfw3/3.0.4/include,
 					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/opt/libpng/include,
 					/usr/local/Cellar/glm/0.9.5.3/include,
 				);
 				INFOPLIST_FILE = "HelloGL/HelloGL-Info.plist";
@@ -505,6 +520,7 @@
 					/usr/local/Cellar/devil/1.7.8_1/lib,
 					/usr/local/Cellar/glfw3/3.0.4/lib,
 					/usr/local/Cellar/assimp/3.0.1270/lib,
+					/usr/local/Cellar/libpng/1.6.10/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
