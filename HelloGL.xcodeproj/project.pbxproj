@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		45918F1019335E0000B18516 /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 45918F0C193349B900B18516 /* libpng16.16.dylib */; };
 		45918F1A19338B2F00B18516 /* MyTransformShaderEmpty.vs in Resources */ = {isa = PBXBuildFile; fileRef = 45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */; };
-
-		45918F1C1934845600B18516 /* introLD.png in Resources */ = {isa = PBXBuildFile; fileRef = 45918F1B1934845600B18516 /* introLD.png */; };
 		45918F1F1936351B00B18516 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 45918F1E1936351B00B18516 /* teapot.obj */; };
 		45B9AB821929F73B003ED531 /* baby.png in Resources */ = {isa = PBXBuildFile; fileRef = 45B9AB811929F73B003ED531 /* baby.png */; };
 		45B9AB851929FBB4003ED531 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B9AB831929FBB4003ED531 /* Camera.cpp */; };
@@ -54,9 +52,7 @@
 /* Begin PBXFileReference section */
 		45918F0C193349B900B18516 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../../../../usr/local/Cellar/libpng/1.6.10/lib/libpng16.16.dylib; sourceTree = "<group>"; };
 		45918F1919338B2F00B18516 /* MyTransformShaderEmpty.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MyTransformShaderEmpty.vs; sourceTree = SOURCE_ROOT; };
-
-		45918F1B1934845600B18516 /* introLD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = introLD.png; path = ../../introLD.png; sourceTree = "<group>"; };
-		45918F1E1936351B00B18516 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = teapot.obj; path = ../../teapot.obj; sourceTree = "<group>"; };
+		45918F1E1936351B00B18516 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		45B9AB811929F73B003ED531 /* baby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baby.png; sourceTree = "<group>"; };
 		45B9AB831929FBB4003ED531 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		45B9AB841929FBB4003ED531 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
