@@ -31,7 +31,7 @@ Particle::Particle(){
     float speedX = -2 + 4* ((double) rand() / (RAND_MAX));
     float speedY = -2 + 4* ((double) rand() / (RAND_MAX));
     float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
-    velocity = glm::vec3(0.01*speedX, 0.5*speedY, 0.01*speedZ);
+    velocity = glm::vec3(0.5*speedX, 0.5*speedY, 0.5*speedZ);
 }
 
 Particle::Particle(glm::vec3 thePosition){
@@ -39,7 +39,10 @@ Particle::Particle(glm::vec3 thePosition){
     life = 0.0f;
     
     position = thePosition;
-    velocity = glm::vec3(0.0, 0.5, 0.0);
+    float speedX = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedY = -2 + 4* ((double) rand() / (RAND_MAX));
+    float speedZ = -2 + 4* ((double) rand() / (RAND_MAX));
+    velocity = glm::vec3(0.15*speedX, 0.15*speedY, 0.15*speedZ);
 }
 
 

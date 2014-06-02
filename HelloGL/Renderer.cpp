@@ -91,7 +91,7 @@ void Renderer::initBuffers(){
     glBindBuffer(GL_ARRAY_BUFFER, vbo[TRANSFORM_VBO]);
     glBufferData(GL_ARRAY_BUFFER, 7 * MAX_BUFFER_SIZE * sizeof(GL_FLOAT), nullptr, GL_DYNAMIC_COPY);
     
-    glPointSize(2.5f);
+    glPointSize(5.5f);
 
 }
 
@@ -119,23 +119,26 @@ void Renderer::setUniforms(){
 
 void Renderer::initTextParticles(){
     container->loadTextParticles();
+    container->loadObjectFile();
 }
 
 void Renderer::update(){
     frameCount++;
     
     // Start transform feedback
-    if(glfwGetTime() > 0.0){
+    if(glfwGetTime() > 10.0){
 
         transformProgram->use();
     
     }else{
         emptyTransformProgram->use();
     }
+
     
     glEnable(GL_RASTERIZER_DISCARD);
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo[DATA_VBO]);
+
     spawnParticles();
 
     glEnableVertexAttribArray(POSITION_LOC);
@@ -217,7 +220,7 @@ void Renderer::spawnParticles(){
 }
 
 void Renderer::spawnParticles(GLfloat* particleData){
-    if(frameCount % interval == 0){
+    if(frameCount % interval == 0 || frameCount == 44){
         frameCount = 0;
         GLfloat* particleData = container->getNewParticleData(batchSize);
         if(particleData != nullptr){

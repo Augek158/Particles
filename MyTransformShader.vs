@@ -20,6 +20,11 @@ const float BoundingWest = -20.0;
 const float BoundingFarthest = -20.0;
 const float BoundingNearest = 20.0;
 
+//Random Generator
+float rand(vec2 co){
+  return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
 //Returns the potential energy and kinetic energy for the particle.
 //Checks height relative to BoundingSouth.
 float calculateEnergy(){
@@ -51,6 +56,7 @@ bool collisionWithBounds(){
         normal= vec3(0.0f, 1.0f, 0.0f);
         tempPosition.y = BoundingSouth;
         collision = true;
+
     }
     if(tempPosition.y > BoundingNorth){
   
