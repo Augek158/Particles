@@ -92,7 +92,7 @@ void Container::loadTextParticles(){
     
 //    /* //Avkommentera om det inte funkar
 
-   if(false){
+   if(true){
     //Init texture
     ILboolean result = ilLoadImage( "introLD.png" ) ;
 
@@ -165,4 +165,39 @@ void Container::loadTextParticles(){
 //    */
 }
 
+void Container::loadObjectFile(){
+    
+    FILE * file = fopen("teapot.obj", "r");
+    if( file == NULL ){
+        printf("Could not open .obj file!\n");
+        
+    }
+    int counter=0;
+    while( 1 ){
+ 
+        char lineHeader[128];
+        // read the first word of the line
+        int res = fscanf(file, "%s", lineHeader);
+        if (res == EOF)
+            break; // EOF = End Of File. Quit the loop.
+        
+            
+        
+        if ( strcmp( lineHeader, "v" ) == 0 ){
+            glm::vec3 vertex;
+            fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
+            float scale = 4.0;
 
+           
+            container[counter] = *new Particle(scale*vertex);
+             counter++;
+
+        }
+        
+
+
+
+    }
+    printf("%i", counter);
+   // offset += counter;
+}

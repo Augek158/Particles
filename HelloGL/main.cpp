@@ -13,8 +13,7 @@
 int main(int argc, const char *argv[]){
 
     ilInit();
-
-    Renderer renderer(70,3);
+    Renderer renderer(3644,5);
     renderer.initWindow();
     renderer.initShaderPrograms();
     renderer.initBuffers();
