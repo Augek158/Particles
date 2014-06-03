@@ -18,16 +18,25 @@
 \begin{document}
 \large
 	\begin{titlepage}
-		\begin{center} 
+		\begin{center}
+
+				\includegraphics[scale=0.3]{img/liu_eng.jpg}
+
+			
 			{\Huge GPU Accelerated Particle System} \\[1cm]
 
 			{\LARGE Project in The Course TNCG14 Advanced Computer Graphics} \\[0.4cm]
-			{\LARGE by August Ek and Oscar Johnson}
+			{\LARGE by August Ek \textbf{augek158} and Oscar Johnson \textbf{oscjo729}  }
+			
+			
+			\vfill{ \LARGE{2014-06-03} }
 		\end{center}
 	\end{titlepage}
 
+	
+
 \section*{Abstract\markboth{Preface}{}}
-The aim of this project was to create a particle system mainly accelerated by the GPU. The system would then be used to render different effects. The system was accelerated using instance rendering and transform feedback leading to a huge performance gain. The particle system created was used to render different visualizations such as smoke, fire and rigid objects colliding with planes.   
+The aim of this project was to create a particle system mainly accelerated by the GPU. The system was accelerated using instance rendering and transform feedback leading to a huge performance gain compared to a CPU-based particle system. The particle system created was used to render different visualizations such as smoke, fire and rigid objects colliding with planes.  
 
 
 \section{Introduction}
@@ -35,14 +44,13 @@ The graphics processing unit have a lot of potential which could be used in grap
 \\
 The objective of this project is to extract the efficiency of the GPU. To demonstrate the power gained after GPU acceleration a particle system was implemented. Using particles to demonstrate gravitational physics and a simulation of smoke and fire with the use of perlin noise.
 \\
-This project uses opengl 4.1 which is a constraint. No compute shader is available to make non graphical calculations on the GPU. 
+This project uses OpenGL 4.1 which is a constraint. No compute shader is available to make non graphical calculations on the GPU. 
 
-\section{Background and related work}
+\section{Background}
 GPU:s primary goal have been to render graphical elements, however with time the GPUs functionality has been extended. Even non graphical calculations is possible on the GPU, and should often times be made there. Which could increase the performance by a great factor. The liability is now more with the programmer to make use of the GPU and moving much of the logic from the CPU to the GPU. This to fully exploit the efficiency of the computer.
 \\
-Even though compute shaders are not available in opengl 4.1 arbitrary calculations can be made on the GPU using a technique called transform feedback. This resolves the obstacle of not being able to do computations on the GPU. Another obstacle in GPU programming are the calls that has to be made from the CPU to GPU. These can create a bottleneck as well. Instancing is another technique which reduces the calls that has to be made. This basically creates a prototype of the particle instead of creating a new instance of each particle.
-\\
-There are some related articles that we have used as material. These articles include information about smoke simulation using perlin noise and are referenced in the report.
+Even though compute shaders are not available in OpenGL 4.1 arbitrary calculations can be made on the GPU using a technique called transform feedback. This resolves the obstacle of not being able to do computations on the GPU. Another obstacle in GPU programming are the calls that has to be made from the CPU to GPU. These can create a bottleneck as well. Instancing is another technique which reduces the calls that has to be made. This basically creates a prototype of the particle instead of creating a new instance of each particle.
+
 \section{Results}
 
 The result was a simple particle engine with capability to spawn 200 times more particles than without GPU acceleration. The particle system implemented has these features:
@@ -67,10 +75,10 @@ The result was a simple particle engine with capability to spawn 200 times more 
 
 \begin{table}[H]
 	\begin{tabular}{l | r | r}
-		  & 30 FPS & 60 FPS   \\[0.75ex] \hline
-  		No Instancing, no Transform Feedback & 10 000 & 5000  \\[0.75ex]
-  		Instancing & 300 000 & 100 000  \\[0.75ex]
-		Instancing and Transform Feedback & 4 000 000 & 1 000 000 \\[0.75ex]
+		  & 30 FPS & 60 FPS   \\[1.0ex] \hline
+  		No Instancing, no Transform Feedback & 10 000 & 5000  \\[1.0ex]
+  		Instancing & 300 000 & 100 000  \\[1.0ex]
+		Instancing and Transform Feedback & 4 000 000 & 1 000 000 \\[1.0ex]
 	\end{tabular}
 \end{table}	
 
@@ -90,7 +98,7 @@ The new positions for the particles was calculated using transform feedback. Thi
 \end{figure}
 
 \subsection{Rendering particles}
-Instanced rendering was used to draw all of the particles with a single call to the GPU. This basically tells the GPU to render the same particle at different positions instead of render a different particle for each position. This offered a performance boost since the overhead related with making each API call would go from \(O(n)\) to \(O(1)\) per frame. 
+Instanced rendering was used to draw all of the particles with a single call to the GPU. This basically tells the GPU to render the same particle at different positions instead of render a different particle for each position. This offered a performance boost since the overhead related to each API call would go from \(O(n)\) to \(O(1)\) per frame.
 
 
 \subsection{Placing particles}
@@ -108,8 +116,8 @@ Two different simulations were made to test the capabilities of the particle sys
 
 \subsubsection{Classical mechanics}
 The physics implementation includes basic gravitational force. For each frame a new velocity and position is calculated due to gravity. 
-A bounding box is surrounding the particles allowing implementation of collision detection. This is done with a simple posteori collision detection. Meaning if the particle moves outside the boundings, move it within the boundings in and calculate the new velocity. The new velocity is then calculated with the reflection formula for vectors.\\
-If collision with the ground level would happen, the new velocity gets scaled with a number between 0.0 and 1.0. This is the coefficent of restitution, which represents the energy loss of the particle upon impact.\\
+A bounding box is surrounding the particles allowing implementation of collision detection. This is done with a simple posteori collision detection. Meaning if the particle moves outside the boundings, move it within the boundings and calculate the new velocity. The new velocity is then calculated with the reflection formula for vectors.\\
+If collision with the ground level would occur, the new velocity gets scaled with a number between 0.0 and 1.0. This is the coefficent of restitution, which represents the energy loss of the particle upon impact.\\
 A calculation of the particles energy is done each frame. Using the particles mass, the gravity, distance to the bottom of the bounding box and velocity. This yields the kinetic and potential energy of the particle. If the energy value is less than a small given value, the particle is assumed still. To avoid unnecessary computation and vibrations at small energy values the velocity is set to zero and the position is assign previews value from then on.
 
 
@@ -158,15 +166,11 @@ None of these are specially powerful computers stating that there is no need for
 The goal to implement a basic particle simulator was reached and by some extent exceeded. The simulator is using recent GPU techniques to boost the performance and using physics and vector calculus to simulate realistic scenarios. Transform feedback combined with instanced rendering removes the bottleneck of being limited to a low amount of particles. The system can easily handle hundreds of thousands of particles at smooth FPS rates even on low-end hardware. The particle system offers high modularity due to the fact that it’s very simple to replace the calculating vertex shader to give the particles a totally different pattern of motion thus simulating different phenomena.
 
 \section{Future work and Improvements}
-The smoke simulation could be improved in the way that the smoke respected boundaries giving the visual result that the smoke avoids some obstacles. This requires that the distance gradient of all obstacles is mixed with the noise-potential and we felt that we didn’t have the time for this feature. \\
-Endless tweaking on parameters for the vector field could be done to create other visuals such as water. There is no real limit on how this could be done since the only goal is to create something aesthetically pleasant. Most of the work of this project had something to do with the motion of the particles and thus the calculations done in the vertex- and transform shader. A lot of work could be done in the fragment shader to drastically improve the visuals.\\
-We can’t say that it wouldn’t be interesting to implement a physically accurate simulation with regards on the equations of Navier-Stokes. That simulation could then be used as reference to compare with the current one in aspects of performance and visual realism. \\
+The smoke simulation could be improved in the way that the smoke respected boundaries giving the visual result that the smoke avoids some obstacles. This requires that the distance gradient of all obstacles is mixed with the noise-potential and we felt that we didn’t have the time for this feature. \\\\
+Endless tweaking on parameters for the vector field could be done to create other visuals such as water. There is no real limit on how this could be done since the only goal is to create something aesthetically pleasant. Most of the work of this project had something to do with the motion of the particles and thus the calculations done in the vertex- and transform shader. A lot of work could be done in the fragment shader to drastically improve the visuals.\\\\
+We can’t say that it wouldn’t be interesting to implement a physically accurate simulation with regards on the equations of Navier-Stokes. That simulation could then be used as reference to compare with the current one in aspects of performance and visual realism. \\\\
 A graphical user interface could be implemented to easy swap between different simulations and the user could also be able to change some of the parameters such as: number of particles in the system, size of each particle and the location where the particles should be spawned. 
-
-
-	%%Benchmark
-	
-
+\\
 \begin{thebibliography}{9}
 \bibitem{stegu11}
   McEwan, I., Sheets, D., Gustavson, S. and Richardson, M. 2011,

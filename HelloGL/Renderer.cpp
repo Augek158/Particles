@@ -119,7 +119,7 @@ void Renderer::setUniforms(){
 
 void Renderer::initTextParticles(){
     container->loadTextParticles();
-    container->loadObjectFile();
+//    container->loadObjectFile();
 }
 
 void Renderer::update(){
