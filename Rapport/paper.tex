@@ -25,11 +25,10 @@
 			{\LARGE by August Ek and Oscar Johnson}
 		\end{center}
 	\end{titlepage}
-	%% First page
-	
-\begin{abstract}
-\\The aim of this project was to create a particle system mainly accelerated by the GPU. The system would then be used to render different effects. The system was accelerated using instance rendering and transform feedback leading to a huge performance gain. The particle system created was used to render different visualizations such as smoke, fire and rigid objects colliding with planes.   
-\end{abstract}
+
+\section*{Abstract\markboth{Preface}{}}
+The aim of this project was to create a particle system mainly accelerated by the GPU. The system would then be used to render different effects. The system was accelerated using instance rendering and transform feedback leading to a huge performance gain. The particle system created was used to render different visualizations such as smoke, fire and rigid objects colliding with planes.   
+
 
 \section{Introduction}
 The graphics processing unit have a lot of potential which could be used in graphics calculations and even in arbitrary calculations surrounding these. One example well suited for this is a particle system. A particle system can be used in various applications. For example simulation of fluids, explosions and animation of hair. 
@@ -52,6 +51,20 @@ There are some related articles that we have used as material. These articles in
 \caption{Smoke and fire rendered with a noise based velocity field.}
 \end{figure}
 
+\begin{figure}[H]
+\includegraphics[scale=0.57]{img/cube.png}
+\caption{Particles colliding inside a bounding box.}
+\end{figure}
+
+\begin{table}[H]
+	\begin{tabular}{l | r | r}
+		  & 30 FPS & 60 FPS   \\[0.75ex] \hline
+  		No Instancing, no Transform Feedback & 10 000 & 5000  \\[0.75ex]
+  		Instancing & 300 000 & 100 000  \\[0.75ex]
+		Instancing and Transform Feedback & 4 000 000 & 1 000 000 \\[0.75ex]
+	\end{tabular}
+\end{table}	
+
 
 	\section{Implementation Details}	
 	
@@ -67,18 +80,24 @@ The new positions for the particles was calculated using transform feedback. Thi
 \caption{Diagram describing the transform feedback. Positions and velocities are used as input to the transform feedback shader which produces new positions. These positions are then used to render the particles on the screen. }
 \end{figure}
 
-	\subsection{Rendering particles}
+\subsection{Rendering particles}
 Instanced rendering was used to draw all of the particles with a single call to the GPU. This basically tells the GPU to render the same particle at different positions instead of render a different particle for each position. This offered a performance boost since the overhead related with making each API call would go from \(O(n)\) to \(O(1)\) per frame. 
 
 
+\subsection{Placing particles}
+To make placing of particles easier and create more interesting visuals of the particles, an importer was made. This functionality receives either a binary png or an obj file. If an image is received particles are placed on a plane which represents the image. White pixel represents a particle while black pixel represents empty space. 
+Receiving an obj file works similarly, a particle is instead represented by a vertex and placed in 3D space rather than in a 2D plane.
 
+\begin{figure}[H]
+\includegraphics[scale=0.5]{img/teapot.png}
+\caption{Particles placed at positions in the shape of a teapot.}
+\end{figure}
 
-	\subsection{Simulation}
+\subsection{Simulation}
 Two different simulations were made to test the capabilities of the particle system. The first one uses classical mechanics to demonstrate particles colliding with planes and the second uses a noise based velocity field to simulate smoke and fire. 
 
 
-	\subsubsection{Classical mechanics}
-
+\subsubsection{Classical mechanics}
 The physics implementation includes basic gravitational force. For each frame a new velocity and position is calculated due to gravity. 
 A bounding box is surrounding the particles allowing implementation of collision detection. This is done with a simple posteori collision detection. Meaning if the particle moves outside the boundings, move it within the boundings in and calculate the new velocity. The new velocity is then calculated with the reflection formula for vectors.\\
 If collision with the ground level would happen, the new velocity gets scaled with a number between 0.0 and 1.0. This is the coefficent of restitution, which represents the energy loss of the particle upon impact.\\
@@ -112,6 +131,20 @@ The result is a divergence-free field which is essential to produce realistic ve
 \includegraphics[scale=0.5]{img/curl-noise.png}
 \caption{the curled noise used as vector field, this field is completely divergence - free.}
 \end{figure}
+
+Two computers with similar specifications were used in the implementation:
+\def\arraystretch{1.5}%
+	\begin{table}[H]
+		\begin{tabular}{| ll |}
+			\hline
+			\textbf{Macbook Air 2013} & \textbf{Macbook Pro 2012} \\[0.75ex] %%\hline
+			 1,3 GHz Intel Core i5  &   2,5 GHz Intel Core i5  \\[0.75ex]
+			  8GB RAM & 8GB RAM    \\[0.75ex]
+		 	 Intel HD Graphics 5000 &  Intel HD Graphics 4000   \\ [0.75ex]
+			\hline
+		\end{tabular}
+	\end{table}	
+None of these are specially powerful computers stating that there is no need for high-end hardware for this type of particle system. 
 \section{Conclusion}
 The goal to implement a basic particle simulator was reached and by some extent exceeded. The simulator is using recent GPU techniques to boost the performance and using physics and vector calculus to simulate realistic scenarios. Transform feedback combined with instanced rendering removes the bottleneck of being limited to a low amount of particles. The system can easily handle hundreds of thousands of particles at smooth FPS rates even on low-end hardware. The particle system offers high modularity due to the fact that it’s very simple to replace the calculating vertex shader to give the particles a totally different pattern of motion thus simulating different phenomena.
 
@@ -122,34 +155,8 @@ We can’t say that it wouldn’t be interesting to implement a physically accur
 A graphical user interface could be implemented to easy swap between different simulations and the user could also be able to change some of the parameters such as: number of particles in the system, size of each particle and the location where the particles should be spawned. 
 
 
-	
-
-	%% Hardware used.
-\def\arraystretch{1.5}%
-	\begin{table}[h]
-		\begin{tabular}{| ll |}
-			\hline
-			\textbf{Macbook Air 2013} & \textbf{Macbook Pro 2012} \\[0.75ex] %%\hline
-			 1,3 GHz Intel Core i5  &   2,5 GHz Intel Core i5  \\[0.75ex]
-			  8GB RAM & 8GB RAM    \\[0.75ex]
-		 	 Intel HD Graphics 5000 &  Intel HD Graphics 4000   \\ [0.75ex]
-			\hline
-		\end{tabular}
-	\end{table}	
-
 	%%Benchmark
 	
-
-	\begin{table}[h]
-		\begin{tabular}{l | r | r}
-			  & 30 FPS & 60 FPS   \\[0.75ex] \hline
-  			No Instancing, no Transform Feedback & 10 000 & 5000  \\[0.75ex]
-  			Instancing & 300 000 & 100 000  \\[0.75ex]
-			Instancing and Transform Feedback & 4 000 000 & 1 000 000 \\[0.75ex]
-
-
-		\end{tabular}
-	\end{table}	
 
 \begin{thebibliography}{9}
 \bibitem{stegu11}
