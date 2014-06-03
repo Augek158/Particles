@@ -9,6 +9,7 @@
 \usepackage{times}
 \usepackage{balance}
 \usepackage{fancyhdr}
+\pagestyle{fancy}
 \usepackage[nooneline,hang,it,IT]{subfigure}
 \usepackage{url}
 
@@ -19,21 +20,17 @@
 \large
 	\begin{titlepage}
 		\begin{center}
+			\includegraphics[scale=0.3]{img/liu_eng.jpg}\\[1cm]
 
-				\includegraphics[scale=0.3]{img/liu_eng.jpg}
-
-			
 			{\Huge GPU Accelerated Particle System} \\[1cm]
 
-			{\LARGE Project in The Course TNCG14 Advanced Computer Graphics} \\[0.4cm]
-			{\LARGE by August Ek \textbf{augek158} and Oscar Johnson \textbf{oscjo729}  }
+			{\LARGE August Ek\\[0.5cm] Oscar Johnson}
 			
 			
 			\vfill{ \LARGE{2014-06-03} }
 		\end{center}
 	\end{titlepage}
-
-	
+\lfoot{\textbf{e-mail}: augek158@student.liu.se, oscjo729@student.liu.se}
 
 \section*{Abstract\markboth{Preface}{}}
 The aim of this project was to create a particle system mainly accelerated by the GPU. The system was accelerated using instance rendering and transform feedback leading to a huge performance gain compared to a CPU-based particle system. The particle system created was used to render different visualizations such as smoke, fire and rigid objects colliding with planes.  
@@ -96,6 +93,7 @@ The new positions for the particles was calculated using transform feedback. Thi
 \includegraphics[scale=0.47]{img/transform.png}
 \caption{Diagram describing the transform feedback. Positions and velocities are used as input to the transform feedback shader which produces new positions. These positions are then used to render the particles on the screen. }
 \end{figure}
+\pagestyle{empty}
 
 \subsection{Rendering particles}
 Instanced rendering was used to draw all of the particles with a single call to the GPU. This basically tells the GPU to render the same particle at different positions instead of render a different particle for each position. This offered a performance boost since the overhead related to each API call would go from \(O(n)\) to \(O(1)\) per frame.
