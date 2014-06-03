@@ -45,6 +45,15 @@ Even though compute shaders are not available in opengl 4.1 arbitrary calculatio
 There are some related articles that we have used as material. These articles include information about smoke simulation using perlin noise and are referenced in the report.
 \section{Results}
 
+The result was a simple particle engine with capability to spawn 200 times more particles than without GPU acceleration. The particle system implemented has these features:
+
+\begin{itemize}
+  \item A perlin noise based fluid simulation
+  \item Gravitational Physics
+  \item Loading of PNG and OBJ files to particles
+\end{itemize}
+
+
 \begin{figure}[H]
 \includegraphics[height=200px]{img/smoke.png}
 \includegraphics[height=200px]{img/fire.png}
